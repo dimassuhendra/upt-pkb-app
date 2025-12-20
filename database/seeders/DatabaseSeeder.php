@@ -2,24 +2,46 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Pemilik;
+use App\Models\Kendaraan;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // 1. Mengisi Data Admin (Tabel Users)
+        User::create([
+            'name' => 'Super Admin PKB',
+            'username' => 'admin_pusat',
+            'email' => 'admin@uptpkb.go.id',
+            'password' => Hash::make('12345678'), // Password harus di-hash
+            'role' => 'super_admin',
+        ]);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // 2. Mengisi Data Pemilik (Dibutuhkan untuk relasi kendaraan)
+        $pemilik = Pemilik::create([
+            'nik' => '3201234567890001',
+            'nama_lengkap' => 'Budi Santoso',
+            'alamat' => 'Jl. Merdeka No. 10, Jakarta',
+            'no_hp' => '081234567890',
+            'jenis_kelamin' => 'L',
+        ]);
+
+        // 3. Mengisi Data Kendaraan
+        Kendaraan::create([
+            'pemilik_id' => $pemilik->id, // Mengambil ID dari pemilik di atas
+            'no_uji' => 'JKT1234567',
+            'no_kendaraan' => 'B 9999 ABC',
+            'no_rangka' => 'MHM1234567890XYZ',
+            'no_mesin' => 'ENG123456789',
+            'merek' => 'Toyota',
+            'tipe' => 'Dyna ST 110',
+            'tahun_pembuatan' => 2022,
+            'bahan_bakar' => 'Solar',
+            'jbb' => 5000,
         ]);
     }
 }
