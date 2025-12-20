@@ -2,20 +2,34 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class PendaftaranUji extends Model
 {
-    protected $table = 'pendaftaran_uji';
-    protected $fillable = ['kendaraan_id', 'petugas_id', 'tanggal_pendaftaran', 'status'];
+    use HasFactory;
 
+    // Nama tabel di database
+    protected $table = 'pendaftaran_uji';
+
+    protected $fillable = [
+        'kendaraan_id',
+        'petugas_id',
+        'tgl_uji',
+        'nomor_antrean',
+        'status_kelulusan',
+        'biaya_retribusi',
+    ];
+
+    // Relasi ke Kendaraan
     public function kendaraan()
     {
-        return $this->belongsTo(Kendaraan::class);
+        return $this->belongsTo(Kendaraan::class, 'kendaraan_id');
     }
 
-    public function rating()
+    // Relasi ke Petugas
+    public function petugas()
     {
-        return $this->hasOne(RatingPelayanan::class, 'pendaftaran_id');
+        return $this->belongsTo(Petugas::class, 'petugas_id');
     }
 }
