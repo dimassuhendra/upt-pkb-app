@@ -1,4 +1,115 @@
 /* Sidebar & Layout */
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 20px 30px;
+    border-radius: 20px;
+    margin-bottom: 35px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 4px;
+}
+
+.breadcrumb i {
+    font-size: 8px;
+}
+
+.current-page {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.digital-clock {
+    background: #eff6ff;
+    color: var(--primary-color);
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-icon-btn {
+    position: relative;
+    font-size: 20px;
+    color: #64748b;
+    cursor: pointer;
+}
+
+.notification-dot {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 8px;
+    height: 8px;
+    background: #ef4444;
+    border: 2px solid white;
+    border-radius: 50%;
+}
+
+.user-profile-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-left: 20px;
+    border-left: 1px solid #f1f5f9;
+}
+
+.user-info {
+    text-align: right;
+}
+
+.user-name {
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    color: #1e293b;
+}
+
+.user-role {
+    font-size: 11px;
+    color: var(--secondary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.user-avatar {
+    width: 42px;
+    height: 42px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+
 .dashboard-wrapper {
     display: flex;
     min-height: 100vh;
@@ -89,4 +200,47 @@ td {
 .badge-danger {
     background: #fee2e2;
     color: #991b1b;
+}
+
+/* Styling Form Input & Select secara Global di Dashboard */
+.form-control-custom {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 14px;
+    background-color: #f8fafc;
+    transition: all 0.3s ease;
+    outline: none;
+    appearance: none;
+    /* Menghilangkan panah default browser */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233A59D1'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 15px;
+}
+
+.form-control-custom:focus {
+    border-color: var(--primary-color);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(58, 89, 209, 0.1);
+}
+
+/* Memperbaiki tampilan tabel agar tidak terlalu rapat */
+.table-container table td {
+    vertical-align: middle;
+}
+
+.badge-plat {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #1e293b;
+    /* Warna plat nomor hitam modern */
+    color: white;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 1px;
+    border: 2px solid #334155;
 }

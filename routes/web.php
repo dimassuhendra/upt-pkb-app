@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SurveiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PendaftaranController;
+
 
 
 Route::get('/', [SurveiController::class, 'index'])->name('survei.index');
@@ -23,5 +25,8 @@ Route::middleware('auth')->group(function () {
     // Prefix admin untuk dashboard
     Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+
+        Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('admin.pendaftaran');
+        Route::post('/pendaftaran', [PendaftaranController::class, 'store'])->name('admin.pendaftaran.store');
     });
 });
