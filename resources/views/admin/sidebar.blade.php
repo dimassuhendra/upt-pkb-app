@@ -140,8 +140,10 @@
             <a href="#" class="nav-link">
                 <i class="fa fa-truck"></i> Data Kendaraan
             </a>
-            <a href="#" class="nav-link">
-                <i class="fa fa-user-group"></i> Data Pemilik
+            <a href="{{ route('admin.pemilik.index') }}"
+                class="nav-link {{ request()->routeIs('admin.pemilik.*') ? 'active' : '' }}">
+                <i class="fa fa-user-group"></i>
+                <span>Data Pemilik</span>
             </a>
             <a href="#" class="nav-link">
                 <i class="fa fa-id-badge"></i> Data Petugas
