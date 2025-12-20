@@ -1,0 +1,81 @@
+/* public/css/main.css */
+:root {
+    --primary-color: #3A59D1;
+    --secondary-color: #3D90D7;
+    --accent-color: #7AC6D2;
+    --light-color: #B5FCCD;
+    --bg-body: #F4F7FE;
+    --text-dark: #1E293B;
+    --white: #FFFFFF;
+}
+
+body {
+    background-color: var(--bg-body);
+    font-family: 'Fredoka', sans-serif;
+    /* Font Body */
+    color: var(--text-dark);
+    margin: 0;
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-header {
+    font-family: 'Domine', serif;
+    /* Font Header */
+    font-weight: 700;
+}
+
+/* Base Card Style */
+.card-custom {
+    background: var(--white);
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 10px 30px rgba(58, 89, 209, 0.1);
+    overflow: hidden;
+}
+
+/* Button Custom */
+.btn-primary-custom {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-primary-custom:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(61, 144, 215, 0.3);
+}
+
+/* Survey Specific Styling */
+.rating-group {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 15px;
+}
+
+.rating-group input {
+    display: none;
+}
+
+.rating-group label {
+    font-size: 40px;
+    color: #CBD5E1;
+    cursor: pointer;
+}
+
+.rating-group input:checked~label,
+.rating-group label:hover,
+.rating-group label:hover~label {
+    color: #FBBF24;
+    /* Gold color for stars */
+}
