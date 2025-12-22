@@ -10,14 +10,14 @@ class SurveiController extends Controller
 {
     public function index()
     {
-        // Cari pendaftaran yang sudah selesai tapi BELUM ada di tabel rating
+        // 1. Perbaikan: Panggil nama relasi 'rating', bukan nama kolom 'skor_bintang'
         $antreanSurvei = PendaftaranUji::whereIn('status_kelulusan', ['lulus', 'tidak_lulus'])
-            ->whereDoesntHave('rating')
+            ->whereDoesntHave('RatingPelayanan')
             ->with('kendaraan.pemilik')
             ->orderBy('tgl_uji', 'asc')
-            ->first(); // Ambil satu yang paling lama (urut)
+            ->first(); 
 
-        // Ambil data petugas untuk dipilih siapa yang dinilai
+        // 2. Ambil data petugas
         $petugas = Petugas::all();
 
         return view('survei.index', compact('antreanSurvei', 'petugas'));
