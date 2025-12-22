@@ -137,7 +137,7 @@
             </a>
 
             <p class="nav-label">Master Data</p>
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.data-kendaraan.index') }}" class="nav-link {{ request()->routeIs('admin.data-kendaraan.*') ? 'active' : '' }}">
                 <i class="fa fa-truck"></i> Data Kendaraan
             </a>
             <a href="{{ route('admin.pemilik.index') }}"
