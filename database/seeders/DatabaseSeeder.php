@@ -17,9 +17,27 @@ class DatabaseSeeder extends Seeder
             'name' => 'Super Admin PKB',
             'username' => 'admin_pusat',
             'email' => 'admin@uptpkb.go.id',
-            'password' => Hash::make('12345678'), // Password harus di-hash
+            'password' => Hash::make('12345678'),
             'role' => 'super_admin',
         ]);
+        User::create(
+            [
+                'name' => 'Sunaryo',
+                'username' => 'admin_sunaryo',  
+                'email' => 'sunaryo@upt-pkb.go.id',
+                'password' => Hash::make('12345678'),
+                'role' => 'petugas',
+            ]
+        );
+        User::create(
+            [
+                'name' => 'Bambang',
+                'username' => 'admin_bambang',
+                'email' => 'bambang@upt-pkb.go.id',
+                'password' => Hash::make('12345678'),
+                'role' => 'petugas',
+            ]
+        );
 
         // 2. Mengisi Data Pemilik (Dibutuhkan untuk relasi kendaraan)
         $pemilik = Pemilik::create([
