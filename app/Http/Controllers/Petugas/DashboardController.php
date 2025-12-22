@@ -3,9 +3,25 @@
 namespace App\Http\Controllers\Petugas;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\PendaftaranUji;
+use App\Models\RatingPelayanan;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
-    
+    public function index()
+    {
+        // Statistik untuk dashboard petugas
+        $hariIni = Carbon::today();
+
+        $stats = [
+            'total_uji_hari_ini' => PendaftaranUji::whereDate('tgl_uji', $hariIni)->count(),
+            'lulus_hari_ini'     => PendaftaranUji::whereDate('tgl_uji', $hariIni)
+                                    ->where('status_kelulusan', 'lulus')->count(),
+            'rating_rata_rata'   => RatingPelayanan::avg('skor_bintang') ?? 0,
+        ];
+
+        return view('petugas.dashboard', compact('stats'));
+    }
 }
