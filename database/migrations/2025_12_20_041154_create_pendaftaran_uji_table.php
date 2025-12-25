@@ -10,21 +10,35 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('pendaftaran_uji', function (Blueprint $table) {
+        Schema::create('pendaftaran', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kendaraan_id')->constrained('kendaraan');
-            $table->string('nomor_antrean');
-            $table->date('tgl_uji');
-            $table->integer('biaya_retribusi');
-            $table->enum('hasil_emisi', ['belum_diuji', 'lulus', 'tidak_lulus'])->default('belum_diuji');
-            $table->enum('hasil_klakson', ['belum_diuji', 'lulus', 'tidak_lulus'])->default('belum_diuji');
-            $table->enum('hasil_lampu', ['belum_diuji', 'lulus', 'tidak_lulus'])->default('belum_diuji');
-            $table->enum('hasil_rem', ['belum_diuji', 'lulus', 'tidak_lulus'])->default('belum_diuji');
-            $table->enum('hasil_kuncup_roda', ['belum_diuji', 'lulus', 'tidak_lulus'])->default('belum_diuji');
-            $table->enum('hasil_spedometer', ['belum_diuji', 'lulus', 'tidak_lulus'])->default('belum_diuji');
-            $table->enum('pos_sekarang', ['petugas_emisi', 'petugas_klakson', 'petugas_lampu', 'petugas_rem', 'petugas_kuncup_roda', 'petugas_spedometer'])->default('petugas_emisi');
-            $table->enum('status_kelulusan', ['proses', 'lulus', 'tidak_lulus'])->default('proses');
-            $table->date('masa_berlaku_kir')->nullable();
+
+            // Relasi Utama
+            $table->foreignId('kendaraan_id')->constrained('kendaraan')->onDelete('cascade');
+            $table->foreignId('petugas_id')->nullable()->constrained('users'); // Petugas yang mendaftarkan atau memeriksa
+
+            // Identitas Pendaftaran
+            $table->string('kode_pendaftaran')->unique(); // Contoh: REG-20231027-001
+            $table->date('tgl_daftar');
+            $table->string('nomor_antrean', 10);
+
+            // Kategori & Tujuan
+            // Menentukan apakah ini uji baru, perpanjangan berkala, atau mutasi
+            $table->enum('jenis_pendaftaran', ['baru', 'berkala', 'numpang_uji', 'mutasi']);
+
+            // Keuangan (Status Pembayaran)
+            $table->integer('total_biaya')->default(0);
+            $table->enum('metode_pembayaran', ['tunai', 'transfer', 'qris'])->nullable();
+            $table->enum('status_pembayaran', ['pending', 'lunas', 'batal'])->default('pending');
+            $table->timestamp('tgl_bayar')->nullable();
+
+            // Operasional (Status Uji)
+            $table->enum('status_uji', ['menunggu', 'proses', 'lulus', 'tidak_lulus', 'batal'])->default('menunggu');
+
+            // Catatan & Hasil
+            $table->text('catatan_petugas')->nullable(); // Alasan jika tidak lulus atau catatan tambahan
+            $table->string('foto_kendaraan')->nullable(); // Bukti kendaraan hadir di lokasi
+
             $table->timestamps();
         });
     }
@@ -34,6 +48,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('pendaftaran_uji');
+        Schema::dropIfExists('pendaftaran');
     }
 };

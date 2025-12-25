@@ -13,16 +13,28 @@ return new class extends Migration {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('username')->unique(); // Tambahkan ini
+            $table->string('username')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+
+            // --- Pengembangan Role & Pos ---
             $table->enum('role', ['super_admin', 'admin_pendaftaran', 'petugas'])->default('admin_pendaftaran');
+
+            // Pos tugas untuk petugas (misal: Pos 1, Pos 2, atau nama spesifik seperti 'Emisi')
+            $table->string('pos_tugas')->nullable();
+
+            // Status akun (is_active) agar user bisa dinonaktifkan tanpa hapus data (audit trail)
+            $table->boolean('is_active')->default(true);
+
+            // Catatan login terakhir untuk monitoring keamanan
+            $table->timestamp('last_login_at')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes(); // Menambahkan fitur deleted_at (data tidak langsung hilang dari DB)
         });
 
-        // Kode untuk password_reset_tokens dan sessions biarkan tetap seperti aslinya
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
