@@ -4,13 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - UPT PKB DIGITAL</title>
-
+    <title>Portal Petugas</title>
     <link href="https://fonts.googleapis.com/css2?family=Domine:wght@400..700&family=Fredoka:wght@300..700&display=swap"
         rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 
@@ -26,9 +24,9 @@
             <header class="admin-header">
                 <div class="header-left">
                     <div class="page-info">
-                        <h4 class="font-header">Panel Administrator</h4>
+                        <h4 class="font-header">Panel Kontrol Petugas</h4>
                         <nav class="breadcrumb">
-                            <span>Admin</span>
+                            <span>Petugas</span>
                             <i class="fa fa-chevron-right"></i>
                             <span class="current-page">{{ ucfirst(Request::segment(2)) }}</span>
                         </nav>

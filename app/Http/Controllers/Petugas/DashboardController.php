@@ -17,11 +17,17 @@ class DashboardController extends Controller
 
         $stats = [
             'total_uji_hari_ini' => PendaftaranUji::whereDate('tgl_uji', $hariIni)->count(),
-            'lulus_hari_ini'     => PendaftaranUji::whereDate('tgl_uji', $hariIni)
-                                    ->where('status_kelulusan', 'lulus')->count(),
-            'rating_rata_rata'   => RatingPelayanan::avg('skor_bintang') ?? 0,
+            'lulus_hari_ini' => PendaftaranUji::whereDate('tgl_uji', $hariIni)
+                ->where('status_kelulusan', 'lulus')->count(),
+            'rating_rata_rata' => RatingPelayanan::avg('skor_bintang') ?? 0,
         ];
 
-        return view('petugas.dashboard', compact('stats'));
+        $posPetugas = Auth::user()->role; // Contoh: role 'petugas_emisi'
+
+        $antreanPos = PendaftaranUji::where('pos_sekarang', $posPetugas)
+            ->where('status_kelulusan', 'proses')
+            ->get();
+
+        return view('petugas.dashboard', compact('antreanPos', 'stats'));
     }
 }

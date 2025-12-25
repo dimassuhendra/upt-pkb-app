@@ -17,6 +17,13 @@ class PendaftaranUji extends Model
         'petugas_id',
         'tgl_uji',
         'nomor_antrean',
+        'hasil_emisi',
+        'hasil_klakson',
+        'hasil_lampu',
+        'hasil_rem',
+        'hasil_kuncup_roda',
+        'hasil_spedometer',
+        'pos_sekarang',
         'status_kelulusan',
         'biaya_retribusi',
     ];
