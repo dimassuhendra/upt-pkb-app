@@ -10,13 +10,16 @@ class RatingPelayanan extends Model
     use HasFactory;
 
     // Nama tabel sesuai di database SQL Anda
-    protected $table = 'rating_pelayanan';
+    protected $table = 'ratings';
 
     protected $fillable = [
         'pendaftaran_id',
         'petugas_id',
         'skor_bintang',
-        'komentar_saran',
+        'kategori_keluhan',
+        'komentar',
+        'tampilkan_publik',
+        'ip_address',
     ];
 
     // Relasi ke PendaftaranUji yang dinilai
