@@ -87,9 +87,20 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        // 1. Simpan role user ke variabel sebelum logout
+        $role = Auth::check() ? Auth::user()->role : null;
+
+        // 2. Proses logout
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login');
+
+        // 3. Logika pengalihan (Redirect) berdasarkan role sebelumnya
+        if ($role === 'petugas') {
+            return redirect()->route('petugas.login')->with('success', 'Petugas telah logout.');
+        }
+
+        // Default redirect untuk admin atau role lainnya
+        return redirect('/login-admin')->with('success', 'Anda telah logout.');
     }
 }

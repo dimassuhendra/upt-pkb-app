@@ -25,12 +25,12 @@ Route::post('/survei/simpan', [SurveiController::class, 'store'])->name('survei.
 */
 Route::middleware('guest')->group(function () {
     // Login Admin (Mengarah ke login.blade.php)
-    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/login-admin', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login-admin', [AuthController::class, 'login']);
 
     // Login Petugas (Mengarah ke login-petugas.blade.php)
-    Route::get('/petugas/login', [AuthController::class, 'showPetugasLogin'])->name('petugas.login');
-    Route::post('/petugas/login', [AuthController::class, 'petugasLogin']);
+    Route::get('/login-petugas', [AuthController::class, 'showPetugasLogin'])->name('petugas.login');
+    Route::post('/login-petugas', [AuthController::class, 'petugasLogin']);
 });
 
 /*
