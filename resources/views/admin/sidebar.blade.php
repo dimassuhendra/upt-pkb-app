@@ -109,44 +109,50 @@
 <div class="sidebar">
     <div style="padding: 0 10px;">
         <h2 class="font-header" style="font-size: 20px; margin-bottom: 30px; letter-spacing: 1px;">
-            <i class="fa-solid fa-shield-halved mr-2"></i> PKB DIGITAL
+            <i class="fa-solid fa-truck-ramp-box mr-2"></i> PKB DIGITAL
         </h2>
 
         <nav class="sidebar-nav">
             <p class="nav-label">Main</p>
             <a href="{{ route('admin.dashboard') }}"
                 class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                <i class="fa fa-home"></i> Dashboard
-            </a>
-
-            <p class="nav-label">Transaksi Uji</p>
-            <a href="{{ route('admin.pendaftaran') }}"
-                class="nav-link {{ request()->routeIs('admin.pendaftaran') ? 'active' : '' }}">
-                <i class="fa fa-clipboard-check"></i> Pendaftaran Baru
+                <i class="fa fa-chart-line"></i> Dashboard
             </a>
             <a href="#" class="nav-link">
-                <i class="fa fa-file-invoice-dollar"></i> Pembayaran Retribusi
+                <i class="fa fa-eye"></i> Monitoring Real-Time
+            </a>
+
+            <p class="nav-label">Transaksi & Operasional</p>
+            <a href="#" class="nav-link">
+                <i class="fa fa-file-signature"></i> Pendaftaran Baru
+            </a>
+            <a href="#" class="nav-link">
+                <i class="fa fa-list-ol"></i> Antrean Kendaraan
+            </a>
+            <a href="#" class="nav-link">
+                <i class="fa fa-clipboard-check"></i> Rekap Hasil Uji
             </a>
             <a href="#" class="nav-link">
                 <i class="fa fa-history"></i> Riwayat Uji
             </a>
 
-            <p class="nav-label">Laporan & Rating</p>
-            <a href="#" class="nav-link">
-                <i class="fa fa-star"></i> Laporan Kepuasan
-            </a>
-
             <p class="nav-label">Master Data</p>
-            <a href="{{ route('admin.data-kendaraan.index') }}" class="nav-link {{ request()->routeIs('admin.data-kendaraan.*') ? 'active' : '' }}">
+            <a href="#" class="nav-link">
                 <i class="fa fa-truck"></i> Data Kendaraan
             </a>
-            <a href="{{ route('admin.pemilik.index') }}"
-                class="nav-link {{ request()->routeIs('admin.pemilik.*') ? 'active' : '' }}">
-                <i class="fa fa-user-group"></i>
-                <span>Data Pemilik</span>
+            <a href="#" class="nav-link">
+                <i class="fa fa-users"></i> Data Pemilik
             </a>
             <a href="#" class="nav-link">
-                <i class="fa fa-id-badge"></i> Data Petugas
+                <i class="fa fa-user-gear"></i> Data Petugas Pos
+            </a>
+
+            <p class="nav-label">Evaluasi</p>
+            <a href="#" class="nav-link">
+                <i class="fa fa-star"></i> Rating & Feedback
+            </a>
+            <a href="#" class="nav-link">
+                <i class="fa fa-file-pdf"></i> Laporan Periodik
             </a>
 
             <div style="border-top: 1px solid rgba(255,255,255,0.1); margin: 20px 0;"></div>
@@ -154,7 +160,7 @@
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button type="submit" class="logout-btn">
-                    <i class="fa fa-sign-out mr-2"></i> Keluar Sistem
+                    <i class="fa fa-sign-out-alt mr-2"></i> Keluar Sistem
                 </button>
             </form>
         </nav>
