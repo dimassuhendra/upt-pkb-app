@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\HasilUjiController;
 use App\Http\Controllers\Admin\KendaraanController;
 use App\Http\Controllers\Admin\PemilikController;
 use App\Http\Controllers\Admin\PetugasController;
+use App\Http\Controllers\Admin\LaporanController;
 
 use App\Http\Controllers\Petugas\DashboardController as PetugasDashboard;
 
@@ -61,6 +62,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/antrean/{id}/next', [AntreanController::class, 'updateStatus'])->name('antrean.next');
         Route::get('/rekap-hasil', [HasilUjiController::class, 'hasil_uji'])->name('hasil-uji.index');
         Route::get('/rekap-hasil/cetak/{id}', [HasilUjiController::class, 'cetakPdf'])->name('hasil-uji.cetak');
+        Route::get('/riwayat-uji', [HasilUjiController::class, 'riwayat'])->name('riwayat.index');
 
         // Master Data
         Route::resource('pemilik', PemilikController::class);
@@ -70,6 +72,9 @@ Route::middleware('auth')->group(function () {
         Route::patch('/petugas/{id}/toggle', [PetugasController::class, 'toggleStatus'])->name('petugas.toggle');
         Route::delete('/petugas/{id}', [PetugasController::class, 'destroy'])->name('petugas.destroy');
         Route::patch('/petugas/{id}/update-pos', [PetugasController::class, 'updatePos'])->name('petugas.updatePos');
+
+        // Evaluasi
+        Route::get('/laporan-periodik', [LaporanController::class, 'index'])->name('laporan.index');
     });
 
     /**

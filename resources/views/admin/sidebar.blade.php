@@ -132,7 +132,7 @@
                 class="nav-link {{ request()->routeIs('admin.hasil-uji.index') ? 'active' : ''}}">
                 <i class="fa fa-clipboard-check"></i> Rekap Hasil Uji
             </a>
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.riwayat.index') }}" class="nav-link {{ request()->routeIs('admin.riwayat.index') ? 'active' : ''}}">
                 <i class="fa fa-history"></i> Riwayat Uji
             </a>
 

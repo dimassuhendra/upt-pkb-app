@@ -27,4 +27,28 @@ class HasilUjiController extends Controller
 
         return $pdf->stream('Hasil_Uji_' . $data->pendaftaran->no_uji . '.pdf');
     }
+
+    public function riwayat(Request $request)
+    {
+        $query = HasilUji::with(['pendaftaran.kendaraan', 'petugas']);
+
+        // Filter Pencarian
+        if ($request->has('search')) {
+            $search = $request->get('search');
+            $query->whereHas('pendaftaran', function ($q) use ($search) {
+                $q->where('no_uji', 'like', "%{$search}%")
+                    ->orWhereHas('kendaraan', function ($qk) use ($search) {
+                        $qk->where('no_kendaraan', 'like', "%{$search}%");
+                    });
+            });
+        }
+
+        // Filter Berdasarkan Hasil
+        if ($request->filled('status')) {
+            $query->where('hasil_akhir', $request->status);
+        }
+
+        $riwayat = $query->latest()->paginate(10); // Gunakan pagination agar tidak berat
+        return view('admin.riwayat-uji', compact('riwayat'));
+    }
 }
