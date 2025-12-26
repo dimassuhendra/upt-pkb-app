@@ -43,4 +43,28 @@ class PemilikController extends Controller
 
         return redirect()->back()->with('success', 'Data pemilik berhasil ditambahkan!');
     }
+
+    // Tambahkan fungsi ini di dalam PemilikController
+    public function update(Request $request, $id)
+    {
+        $pemilik = Pemilik::findOrFail($id);
+
+        $request->validate([
+            'nik' => 'required|digits:16|unique:pemilik,nik,' . $id,
+            'nama_lengkap' => 'required',
+            'no_hp' => 'required',
+        ]);
+
+        $pemilik->update($request->all());
+
+        return redirect()->back()->with('success', 'Data pemilik berhasil diperbarui');
+    }
+
+    public function destroy($id)
+    {
+        $pemilik = Pemilik::findOrFail($id);
+        $pemilik->delete();
+
+        return redirect()->back()->with('success', 'Data pemilik telah dihapus');
+    }
 }
