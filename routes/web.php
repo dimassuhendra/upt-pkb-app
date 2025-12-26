@@ -55,7 +55,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/pendaftaran/simpan', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
 
         // Master Data (Resource CRUD)
-        Route::resource('pemilik', PemilikController::class);
+        Route::get('/pemilik', [PemilikController::class, 'index'])->name('pemilik.index');
+        Route::post('/pemilik/simpan', [PemilikController::class, 'store'])->name('pemilik.store');
         Route::resource('data-kendaraan', KendaraanController::class);
     });
 

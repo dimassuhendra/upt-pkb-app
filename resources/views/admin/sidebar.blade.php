@@ -140,7 +140,7 @@
             <a href="#" class="nav-link">
                 <i class="fa fa-truck"></i> Data Kendaraan
             </a>
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.pemilik.index') }}" class="nav-link {{ request()->routeIs('admin.pemilik.index') ? 'active' : '' }}">
                 <i class="fa fa-users"></i> Data Pemilik
             </a>
             <a href="#" class="nav-link">
