@@ -154,7 +154,7 @@
             <a href="#" class="nav-link">
                 <i class="fa fa-star"></i> Rating & Feedback
             </a>
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.laporan.index') }}" class="nav-link {{ request()->routeIs('admin.laporan.index') ? 'active' : ''}}">
                 <i class="fa fa-file-pdf"></i> Laporan Periodik
             </a>
 
