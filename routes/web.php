@@ -51,8 +51,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('dashboard');
 
         // Fitur Pendaftaran
-        Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran');
-        Route::post('/pendaftaran', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
+        Route::get('/pendaftaran/baru', [PendaftaranController::class, 'create'])->name('pendaftaran.create');
+        Route::post('/pendaftaran/simpan', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
 
         // Master Data (Resource CRUD)
         Route::resource('pemilik', PemilikController::class);

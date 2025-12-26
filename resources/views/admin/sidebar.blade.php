@@ -123,7 +123,7 @@
             </a>
 
             <p class="nav-label">Transaksi & Operasional</p>
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.pendaftaran.create') }}" class="nav-link {{ request()->routeIs('admin.pendaftaran.create') ? 'active' : '' }}">
                 <i class="fa fa-file-signature"></i> Pendaftaran Baru
             </a>
             <a href="#" class="nav-link">
