@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\PendaftaranController;
 use App\Http\Controllers\Admin\PemilikController;
 use App\Http\Controllers\Admin\KendaraanController;
 use App\Http\Controllers\Admin\AntreanController;
+use App\Http\Controllers\Admin\PetugasController;
 
 use App\Http\Controllers\Petugas\DashboardController as PetugasDashboard;
 
@@ -61,6 +62,10 @@ Route::middleware('auth')->group(function () {
         // Master Data
         Route::resource('pemilik', PemilikController::class);
         Route::resource('kendaraan', KendaraanController::class)->names('kendaraan');
+        Route::get('/petugas', [PetugasController::class, 'index'])->name('petugas.index');
+        Route::post('/petugas', [PetugasController::class, 'store'])->name('petugas.store');
+        Route::patch('/petugas/{id}/toggle', [PetugasController::class, 'toggleStatus'])->name('petugas.toggle');
+        Route::delete('/petugas/{id}', [PetugasController::class, 'destroy'])->name('petugas.destroy');
     });
 
     /**

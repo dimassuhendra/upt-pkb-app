@@ -143,7 +143,7 @@
                 class="nav-link {{ request()->routeIs('admin.pemilik.index') ? 'active' : '' }}">
                 <i class="fa fa-users"></i> Data Pemilik
             </a>
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.petugas.index') }}" class="nav-link {{ request()->routeIs('admin.petugas.index') ? 'active' : '' }}">
                 <i class="fa fa-user-gear"></i> Data Petugas Pos
             </a>
 
