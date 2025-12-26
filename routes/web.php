@@ -66,6 +66,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/petugas', [PetugasController::class, 'store'])->name('petugas.store');
         Route::patch('/petugas/{id}/toggle', [PetugasController::class, 'toggleStatus'])->name('petugas.toggle');
         Route::delete('/petugas/{id}', [PetugasController::class, 'destroy'])->name('petugas.destroy');
+        Route::patch('/petugas/{id}/update-pos', [PetugasController::class, 'updatePos'])->name('petugas.updatePos');
     });
 
     /**

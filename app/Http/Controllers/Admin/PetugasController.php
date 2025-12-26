@@ -30,10 +30,11 @@ class PetugasController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'username' => 'required|string|max:20|unique:users',
+            'username' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
             'role' => 'required|in:super_admin,admin_pendaftaran,petugas',
+            'pos_tugas' => 'nullable|string|max:255',
         ]);
 
         User::create([
@@ -42,10 +43,20 @@ class PetugasController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
-            'is_active' => true,
+            'pos_tugas' => $request->role === 'petugas' ? $request->pos_tugas : null,
+            'is_active' => 1,
         ]);
 
-        return redirect()->back()->with('success', 'Petugas baru berhasil didaftarkan.');
+        return redirect()->back()->with('success', 'Akun petugas berhasil dibuat.');
+    }
+
+    // Tambahkan fungsi update posisi pos secara cepat
+    public function updatePos(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->update(['pos_tugas' => $request->pos_tugas]);
+
+        return redirect()->back()->with('success', 'Posisi tugas ' . $user->name . ' berhasil diperbarui.');
     }
 
     public function toggleStatus($id)

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -22,7 +21,9 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
-        'role',
+        'role',      // super_admin, admin_pendaftaran, petugas
+        'pos_tugas', // Pos 1 sampai Pos 5
+        'is_active', // Status akun (1 atau 0)
     ];
 
     /**
@@ -45,6 +46,15 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_active' => 'boolean', // Agar nilai 1/0 otomatis menjadi true/false di aplikasi
         ];
+    }
+
+    /**
+     * Helper untuk mengecek apakah user adalah petugas di pos tertentu
+     */
+    public function isDiPos($pos)
+    {
+        return $this->role === 'petugas' && $this->pos_tugas === $pos;
     }
 }
