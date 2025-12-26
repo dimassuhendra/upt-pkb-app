@@ -1,36 +1,32 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\PendaftaranUji;
-use App\Models\Kendaraan;
-use App\Models\Petugas;
+use App\Models\HasilUji;
 use App\Models\RatingPelayanan;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        // Statistik Ringkasan
-        $data['total_kendaraan'] = Kendaraan::count();
-        $data['total_uji_hari_ini'] = PendaftaranUji::whereDate('tgl_uji', today())->count();
-        $data['uji_lulus'] = PendaftaranUji::where('status_kelulusan', 'lulus')->count();
-        $data['uji_gagal'] = PendaftaranUji::where('status_kelulusan', 'tidak_lulus')->count();
+        $today = Carbon::today();
 
-        // Data Rating Terbaru
-        $data['recent_ratings'] = RatingPelayanan::with(['pendaftaran.kendaraan', 'petugas'])
+        $stats = [
+            'total_daftar' => PendaftaranUji::whereDate('tgl_daftar', $today)->count(),
+            'sedang_uji' => PendaftaranUji::where('status_uji', 'proses')->count(),
+            'lulus' => HasilUji::whereDate('created_at', $today)->where('hasil_akhir', 'lulus')->count(),
+            'gagal' => HasilUji::whereDate('created_at', $today)->where('hasil_akhir', 'tidak_lulus')->count(),
+        ];
+
+        // Gunakan with() hanya untuk yang diperlukan, dan pastikan data tidak null
+        $recent_ratings = RatingPelayanan::with(['pendaftaran.kendaraan'])
             ->latest()
-            ->take(5)
+            ->limit(5)
             ->get();
 
-        // Data Antrean Uji (Yang masih proses)
-        $data['antrean'] = PendaftaranUji::with('kendaraan')
-            ->where('status_kelulusan', 'proses')
-            ->orderBy('nomor_antrean', 'asc')
-            ->get();
-
-        return view('admin.dashboard', $data);
+        return view('admin.dashboard', compact('stats', 'recent_ratings'));
     }
 }
