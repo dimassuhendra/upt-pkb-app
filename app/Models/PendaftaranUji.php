@@ -16,7 +16,7 @@ class PendaftaranUji extends Model
         'petugas_id',
         'kode_pendaftaran',
         'tgl_daftar',
-        'nomor_antrian',
+        'nomor_antrean',
         'jenis_pendaftaran',
         'total_biaya',
         'metode_pembayaran',

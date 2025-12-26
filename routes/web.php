@@ -3,11 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SurveiController;
 use App\Http\Controllers\AuthController;
+
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Admin\PendaftaranController;
 use App\Http\Controllers\Admin\PemilikController;
 use App\Http\Controllers\Admin\KendaraanController;
-// Import controller dashboard untuk petugas
+use App\Http\Controllers\Admin\AntreanController;
+
 use App\Http\Controllers\Petugas\DashboardController as PetugasDashboard;
 
 /*
@@ -50,11 +52,13 @@ Route::middleware('auth')->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('dashboard');
 
-        // Fitur Pendaftaran
+        // Transaksi dan Operasional
         Route::get('/pendaftaran/baru', [PendaftaranController::class, 'create'])->name('pendaftaran.create');
         Route::post('/pendaftaran/simpan', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
+        Route::get('/antrean', [AntreanController::class, 'index'])->name('antrean.index');
+        Route::post('/antrean/{id}/next', [AntreanController::class, 'updateStatus'])->name('antrean.next');
 
-        // Master Data (Resource CRUD)
+        // Master Data
         Route::resource('pemilik', PemilikController::class);
         Route::resource('kendaraan', KendaraanController::class)->names('kendaraan');
     });

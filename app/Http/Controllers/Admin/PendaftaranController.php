@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\PendaftaranUji;
 use App\Models\Kendaraan;
+use Illuminate\Support\Str; 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -38,7 +39,7 @@ class PendaftaranController extends Controller
             'petugas_id' => auth()->id(), // Admin yang mendaftarkan
             'kode_pendaftaran' => $kodePendaftaran,
             'tgl_daftar' => $today,
-            'nomor_antrian' => $nomorAntrean,
+            'nomor_antrean' => $nomorAntrean,
             'jenis_pendaftaran' => $request->jenis_pendaftaran,
             'total_biaya' => $request->total_biaya,
             'status_pembayaran' => 'lunas', // Asumsi langsung bayar di loket

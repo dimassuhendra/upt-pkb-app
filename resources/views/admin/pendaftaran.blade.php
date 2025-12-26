@@ -56,8 +56,9 @@
                                         <select name="kendaraan_id" class="form-select select2">
                                             <option value="">-- Pilih Kendaraan --</option>
                                             @foreach($kendaraan as $item)
-                                                <option value="{{ $item->id }}">{{ $item->no_kendaraan }} -
-                                                    {{ $item->pemilik->nama_lengkap }}</option>
+                                                <option value="{{ $item->id }}">
+                                                    {{ $item->no_kendaraan }} - {{ $item->pemilik->nama_lengkap }} ({{ $item->merek }})
+                                                </option>
                                             @endforeach
                                         </select>
                                         <small class="text-primary mt-2 d-block">
@@ -69,9 +70,10 @@
                                     <div class="col-md-6 mb-4">
                                         <label class="form-label">Jenis Pendaftaran</label>
                                         <select name="jenis_pendaftaran" class="form-select">
-                                            <option value="uji_berkala">Uji Berkala (6 Bulan)</option>
-                                            <option value="uji_pertama">Uji Pertama (Baru)</option>
-                                            <option value="numpang_uji">Numpang Uji</option>
+                                            <option value="Baru">Uji Pertama (Baru)</option>
+                                            <option value="Berkala">Uji Berkala (6 Bulan)</option>
+                                            <option value="Numpang Uji">Numpang Uji</option>
+                                            <option value="Mutasi">Mutasi</option>
                                         </select>
                                     </div>
 

@@ -118,16 +118,13 @@
                 class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                 <i class="fa fa-chart-line"></i> Dashboard
             </a>
-            <a href="#" class="nav-link">
-                <i class="fa fa-eye"></i> Monitoring Real-Time
-            </a>
 
             <p class="nav-label">Transaksi & Operasional</p>
             <a href="{{ route('admin.pendaftaran.create') }}"
                 class="nav-link {{ request()->routeIs('admin.pendaftaran.create') ? 'active' : '' }}">
                 <i class="fa fa-file-signature"></i> Pendaftaran Baru
             </a>
-            <a href="#" class="nav-link">
+        <a href="{{ route('admin.antrean.index') }}" class="nav-link {{ request()->routeIs('admin.antrean.index') ? 'active' : '' }}">
                 <i class="fa fa-list-ol"></i> Antrean Kendaraan
             </a>
             <a href="#" class="nav-link">
