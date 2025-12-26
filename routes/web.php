@@ -56,7 +56,7 @@ Route::middleware('auth')->group(function () {
 
         // Master Data (Resource CRUD)
         Route::resource('pemilik', PemilikController::class);
-        Route::resource('data-kendaraan', KendaraanController::class);
+        Route::resource('kendaraan', KendaraanController::class)->names('kendaraan');
     });
 
     /**

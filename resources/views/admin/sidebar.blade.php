@@ -123,7 +123,8 @@
             </a>
 
             <p class="nav-label">Transaksi & Operasional</p>
-            <a href="{{ route('admin.pendaftaran.create') }}" class="nav-link {{ request()->routeIs('admin.pendaftaran.create') ? 'active' : '' }}">
+            <a href="{{ route('admin.pendaftaran.create') }}"
+                class="nav-link {{ request()->routeIs('admin.pendaftaran.create') ? 'active' : '' }}">
                 <i class="fa fa-file-signature"></i> Pendaftaran Baru
             </a>
             <a href="#" class="nav-link">
@@ -137,10 +138,12 @@
             </a>
 
             <p class="nav-label">Master Data</p>
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.kendaraan.index') }}"
+                class="nav-link {{ request()->routeIs('admin.kendaraan.index') ? 'active' : '' }}">
                 <i class="fa fa-truck"></i> Data Kendaraan
             </a>
-            <a href="{{ route('admin.pemilik.index') }}" class="nav-link {{ request()->routeIs('admin.pemilik.index') ? 'active' : '' }}">
+            <a href="{{ route('admin.pemilik.index') }}"
+                class="nav-link {{ request()->routeIs('admin.pemilik.index') ? 'active' : '' }}">
                 <i class="fa fa-users"></i> Data Pemilik
             </a>
             <a href="#" class="nav-link">

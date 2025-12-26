@@ -23,7 +23,7 @@ return new class extends Migration {
             // Spesifikasi Dasar
             $table->string('merek'); // Contoh: Toyota, Mitsubishi, Hino
             $table->string('tipe');  // Contoh: Dyna, Canter, Jetbus 3
-            $table->enum('jenis_kendaraan', ['bus', 'truk', 'angkot', 'pickup', 'mobil_penumpang']);
+            $table->enum('jenis_kendaraan', ['Bus', 'Truk', 'Angkot', 'Pickup', 'Mobil Penumpang']);
             $table->string('model'); // Contoh: Microbus, Dump Truck, Box
             $table->integer('tahun_pembuatan');
             $table->integer('tahun_perakitan');
@@ -32,7 +32,7 @@ return new class extends Migration {
             // Teknis & Fisik
             $table->string('warna');
             $table->string('warna_tnkb'); // Hitam, Kuning, Merah, Putih
-            $table->enum('bahan_bakar', ['bensin', 'solar', 'listrik', 'hybrid']);
+            $table->enum('bahan_bakar', ['Bensin', 'Solar', 'Listrik', 'Hybrid']);
             $table->integer('jumlah_roda');
             $table->integer('jumlah_sumbu'); // Penting untuk klasifikasi jalan
 
