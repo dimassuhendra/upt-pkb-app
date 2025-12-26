@@ -124,10 +124,12 @@
                 class="nav-link {{ request()->routeIs('admin.pendaftaran.create') ? 'active' : '' }}">
                 <i class="fa fa-file-signature"></i> Pendaftaran Baru
             </a>
-        <a href="{{ route('admin.antrean.index') }}" class="nav-link {{ request()->routeIs('admin.antrean.index') ? 'active' : '' }}">
+            <a href="{{ route('admin.antrean.index') }}"
+                class="nav-link {{ request()->routeIs('admin.antrean.index') ? 'active' : '' }}">
                 <i class="fa fa-list-ol"></i> Antrean Kendaraan
             </a>
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.hasil-uji.index') }}"
+                class="nav-link {{ request()->routeIs('admin.hasil-uji.index') ? 'active' : ''}}">
                 <i class="fa fa-clipboard-check"></i> Rekap Hasil Uji
             </a>
             <a href="#" class="nav-link">
@@ -143,7 +145,8 @@
                 class="nav-link {{ request()->routeIs('admin.pemilik.index') ? 'active' : '' }}">
                 <i class="fa fa-users"></i> Data Pemilik
             </a>
-            <a href="{{ route('admin.petugas.index') }}" class="nav-link {{ request()->routeIs('admin.petugas.index') ? 'active' : '' }}">
+            <a href="{{ route('admin.petugas.index') }}"
+                class="nav-link {{ request()->routeIs('admin.petugas.index') ? 'active' : '' }}">
                 <i class="fa fa-user-gear"></i> Data Petugas Pos
             </a>
 

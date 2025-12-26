@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Kendaraan;
 use App\Models\Pemilik;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule; // Tambahkan ini untuk validasi unik saat update
+use Illuminate\Validation\Rule;
 
 class KendaraanController extends Controller
 {

@@ -6,9 +6,10 @@ use App\Http\Controllers\AuthController;
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 use App\Http\Controllers\Admin\PendaftaranController;
-use App\Http\Controllers\Admin\PemilikController;
-use App\Http\Controllers\Admin\KendaraanController;
 use App\Http\Controllers\Admin\AntreanController;
+use App\Http\Controllers\Admin\HasilUjiController;
+use App\Http\Controllers\Admin\KendaraanController;
+use App\Http\Controllers\Admin\PemilikController;
 use App\Http\Controllers\Admin\PetugasController;
 
 use App\Http\Controllers\Petugas\DashboardController as PetugasDashboard;
@@ -58,6 +59,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/pendaftaran/simpan', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
         Route::get('/antrean', [AntreanController::class, 'index'])->name('antrean.index');
         Route::post('/antrean/{id}/next', [AntreanController::class, 'updateStatus'])->name('antrean.next');
+        Route::get('/rekap-hasil', [HasilUjiController::class, 'hasil_uji'])->name('hasil-uji.index');
+        Route::get('/rekap-hasil/cetak/{id}', [HasilUjiController::class, 'cetakPdf'])->name('hasil-uji.cetak');
 
         // Master Data
         Route::resource('pemilik', PemilikController::class);
