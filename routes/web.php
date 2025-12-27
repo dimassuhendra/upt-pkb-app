@@ -13,7 +13,8 @@ use App\Http\Controllers\Admin\PemilikController;
 use App\Http\Controllers\Admin\PetugasController;
 use App\Http\Controllers\Admin\LaporanController;
 
-use App\Http\Controllers\Petugas\DashboardController as PetugasDashboard;
+use App\Http\Controllers\Petugas\DashboardController;
+use App\Http\Controllers\Petugas\PemeriksaanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,9 +82,49 @@ Route::middleware('auth')->group(function () {
      * Grouping Petugas
      * Folder View: resources/views/petugas/
      */
-    Route::prefix('petugas')->name('petugas.')->group(function () {
-        Route::get('/dashboard', [PetugasDashboard::class, 'index'])->name('dashboard');
+    Route::middleware(['auth', 'role:petugas'])->prefix('petugas')->name('petugas.')->group(function () {
 
-        // Anda bisa menambahkan route khusus petugas lainnya di sini nanti
+        // 1. Dashboard & Profil
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/profil', [DashboardController::class, 'profil'])->name('profil');
+
+        // 2. Antrean Kendaraan (Daftar tunggu untuk semua pos)
+        Route::get('/antrean', [AntreanController::class, 'index'])->name('antrean');
+
+        // 3. Route Form Input Berdasarkan Pos
+        // Pos 1: Visual
+        Route::prefix('visual')->name('visual.')->group(function () {
+            Route::get('/', [PemeriksaanController::class, 'visualIndex'])->name('index');
+            Route::post('/store', [PemeriksaanController::class, 'visualStore'])->name('store');
+        });
+
+        // Pos 2: Emisi
+        Route::prefix('emisi')->name('emisi.')->group(function () {
+            Route::get('/', [PemeriksaanController::class, 'emisiIndex'])->name('index');
+            Route::post('/store', [PemeriksaanController::class, 'emisiStore'])->name('store');
+        });
+
+        // Pos 3: Rem
+        Route::prefix('rem')->name('rem.')->group(function () {
+            Route::get('/', [PemeriksaanController::class, 'remIndex'])->name('index');
+            Route::post('/store', [PemeriksaanController::class, 'remStore'])->name('store');
+        });
+
+        // Pos 4: Lampu & Kebisingan
+        Route::prefix('lampu')->name('lampu.')->group(function () {
+            Route::get('/', [PemeriksaanController::class, 'lampuIndex'])->name('index');
+            Route::post('/store', [PemeriksaanController::class, 'lampuStore'])->name('store');
+        });
+
+        // Pos 5: Kuncup Roda & Hasil Akhir
+        Route::prefix('roda')->name('roda.')->group(function () {
+            Route::get('/', [PemeriksaanController::class, 'rodaIndex'])->name('index');
+            Route::post('/store', [PemeriksaanController::class, 'rodaStore'])->name('store');
+        });
+
+        // 4. Riwayat & Detail
+        Route::get('/riwayat', [PemeriksaanController::class, 'riwayat'])->name('riwayat');
+        Route::get('/pemeriksaan/detail/{id}', [PemeriksaanController::class, 'show'])->name('detail');
+
     });
 });
