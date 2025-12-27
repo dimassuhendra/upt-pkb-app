@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\PetugasController;
 use App\Http\Controllers\Admin\LaporanController;
 
 use App\Http\Controllers\Petugas\DashboardController;
+use App\Http\Controllers\Petugas\AntreanController as PetugasAntreanController;
 use App\Http\Controllers\Petugas\PemeriksaanController;
 
 /*
@@ -89,8 +90,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/profil', [DashboardController::class, 'profil'])->name('profil');
 
         // 2. Antrean Kendaraan (Daftar tunggu untuk semua pos)
-        Route::get('/antrean', [AntreanController::class, 'index'])->name('antrean');
-
+        Route::get('/antrean', [PetugasAntreanController::class, 'index'])->name('antrean');
         // 3. Route Form Input Berdasarkan Pos
         // Pos 1: Visual
         Route::prefix('visual')->name('visual.')->group(function () {
