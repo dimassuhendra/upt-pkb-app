@@ -53,7 +53,13 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="text-center p-5 text-muted">Belum ada hasil uji yang dapat ditampilkan.</td>
+                                    <td colspan="5" class="text-center p-5 text-muted">
+                                        <div class="col-12 text-center">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/4076/4076549.png" width="100"
+                                                class="mb-3 opacity-50">
+                                            <p class="text-muted">Tidak ada hasil uji yang dapat ditampilkan.</p>
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforelse
                         </tbody>
