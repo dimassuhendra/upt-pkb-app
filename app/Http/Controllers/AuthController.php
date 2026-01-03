@@ -29,13 +29,15 @@ class AuthController extends Controller
         if (Auth::attempt($credentials, $request->has('remember'))) {
             $request->session()->regenerate();
 
-            // Pastikan yang login di sini adalah Admin
-            if (in_array(Auth::user()->role, ['super_admin', 'admin_pendaftaran'])) {
-                return redirect()->intended('admin/dashboard')->with('success', 'Halo Admin!');
+            $user = Auth::user();
+
+            // Logika Redirect Ketat untuk Admin
+            if (in_array($user->role, ['super_admin', 'admin_pendaftaran'])) {
+                return redirect('/admin/dashboard')->with('success', 'Selamat Datang, Admin!');
             }
 
-            // Jika role petugas nyasar ke login admin, paksa logout atau alihkan
-            return $this->redirectByRole(Auth::user()->role);
+            // Jika role bukan admin tapi login di sini, alihkan ke tempat yang benar
+            return $this->redirectByRole($user->role);
         }
 
         return back()->withErrors(['username' => 'Kredensial Admin tidak valid.'])->onlyInput('username');
@@ -63,44 +65,51 @@ class AuthController extends Controller
         if (Auth::attempt($credentials, $request->has('remember'))) {
             $request->session()->regenerate();
 
-            // Pastikan yang login adalah Petugas
-            if (Auth::user()->role === 'petugas') {
-                return redirect()->intended('petugas/dashboard')->with('success', 'Halo Petugas!');
+            $user = Auth::user();
+
+            // Logika Redirect Ketat untuk Petugas
+            if ($user->role === 'petugas') {
+                return redirect('/petugas/dashboard')->with('success', 'Selamat Bertugas, Petugas!');
             }
 
-            return $this->redirectByRole(Auth::user()->role);
+            // Jika admin nyasar login di petugas, arahkan ke admin
+            return $this->redirectByRole($user->role);
         }
 
         return back()->withErrors(['username' => 'Kredensial Petugas tidak valid.'])->onlyInput('username');
     }
 
-    // Helper untuk keamanan agar user tidak salah kamar
+    /**
+     * Helper untuk keamanan agar user diarahkan ke dashboard yang tepat
+     * Menggunakan redirect path langsung untuk menghindari konflik session 'intended'
+     */
     protected function redirectByRole($role)
     {
         if (in_array($role, ['super_admin', 'admin_pendaftaran'])) {
-            return redirect()->intended('admin/dashboard');
+            return redirect('/admin/dashboard');
         } elseif ($role === 'petugas') {
-            return redirect()->intended('petugas/dashboard');
+            return redirect('/petugas/dashboard');
         }
-        return redirect('/');
+
+        Auth::logout();
+        return redirect('/')->with('error', 'Role tidak dikenali.');
     }
 
+    // --- LOGOUT ---
     public function logout(Request $request)
     {
-        // 1. Simpan role user ke variabel sebelum logout
+        // Simpan role sebelum session dihancurkan untuk menentukan halaman redirect
         $role = Auth::check() ? Auth::user()->role : null;
 
-        // 2. Proses logout
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        // 3. Logika pengalihan (Redirect) berdasarkan role sebelumnya
+        // Redirect kembali ke halaman login yang sesuai
         if ($role === 'petugas') {
-            return redirect()->route('petugas.login')->with('success', 'Petugas telah logout.');
+            return redirect()->route('petugas.login')->with('success', 'Sesi petugas berakhir.');
         }
 
-        // Default redirect untuk admin atau role lainnya
-        return redirect('/login-admin')->with('success', 'Anda telah logout.');
+        return redirect('/login-admin')->with('success', 'Sesi admin berakhir.');
     }
 }

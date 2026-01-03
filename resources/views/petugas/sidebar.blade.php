@@ -145,27 +145,27 @@
             </a>
 
             @if(Auth::user()->pos_tugas == 'Pos 1')
-                <a href="{{ route('petugas.visual.index') }}"
+                <a href="{{ route('petugas.antrean') }}"
                     class="nav-link {{ request()->is('petugas/visual*') ? 'active' : '' }}">
                     <i class="fa fa-eye"></i> Pemeriksaan Visual
                 </a>
             @elseif(Auth::user()->pos_tugas == 'Pos 2')
-                <a href="{{ route('petugas.emisi.index') }}"
+                <a href="{{ route('petugas.antrean') }}"
                     class="nav-link {{ request()->is('petugas/emisi*') ? 'active' : '' }}">
                     <i class="fa fa-smog"></i> Pemeriksaan Emisi
                 </a>
             @elseif(Auth::user()->pos_tugas == 'Pos 3')
-                <a href="{{ route('petugas.rem.index') }}"
+                <a href="{{ route('petugas.antrean') }}"
                     class="nav-link {{ request()->is('petugas/rem*') ? 'active' : '' }}">
                     <i class="fa fa-stop-circle"></i> Pemeriksaan Rem
                 </a>
             @elseif(Auth::user()->pos_tugas == 'Pos 4')
-                <a href="{{ route('petugas.lampu.index') }}"
+                <a href="{{ route('petugas.antrean') }}"
                     class="nav-link {{ request()->is('petugas/lampu*') ? 'active' : '' }}">
                     <i class="fa fa-bolt"></i> Lampu & Kebisingan
                 </a>
             @elseif(Auth::user()->pos_tugas == 'Pos 5')
-                <a href="{{ route('petugas.roda.index') }}"
+                <a href="{{ route('petugas.antrean') }}"
                     class="nav-link {{ request()->is('petugas/roda*') ? 'active' : '' }}">
                     <i class="fa fa-arrows-left-right"></i> Kuncup Roda Depan
                 </a>

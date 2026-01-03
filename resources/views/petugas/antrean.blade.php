@@ -65,18 +65,20 @@
                             </div>
 
                             @php
-                                // Logika untuk menentukan tombol mana yang muncul berdasarkan Pos petugas
-                                $routePos = '';
-                                if (Auth::user()->pos_tugas == 'Pos 1')
+                                $routePos = '#'; 
+                                $userPos = Auth::user()->pos_tugas;
+
+                                if ($userPos == 'Pos 1') {
                                     $routePos = route('petugas.visual.index', ['id' => $item->id]);
-                                elseif (Auth::user()->pos_tugas == 'Pos 2')
+                                } elseif ($userPos == 'Pos 2') {
                                     $routePos = route('petugas.emisi.index', ['id' => $item->id]);
-                                elseif (Auth::user()->pos_tugas == 'Pos 3')
+                                } elseif ($userPos == 'Pos 3') {
                                     $routePos = route('petugas.rem.index', ['id' => $item->id]);
-                                elseif (Auth::user()->pos_tugas == 'Pos 4')
+                                } elseif ($userPos == 'Pos 4') {
                                     $routePos = route('petugas.lampu.index', ['id' => $item->id]);
-                                elseif (Auth::user()->pos_tugas == 'Pos 5')
+                                } elseif ($userPos == 'Pos 5') {
                                     $routePos = route('petugas.roda.index', ['id' => $item->id]);
+                                }
                             @endphp
 
                             <a href="{{ $routePos }}" class="btn btn-primary w-100 rounded-pill fw-bold">
