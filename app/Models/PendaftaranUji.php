@@ -36,4 +36,10 @@ class PendaftaranUji extends Model
     {
         return $this->belongsTo(User::class, 'petugas_id');
     }
+
+    public function rating()
+    {
+        return $this->hasOne(RatingPelayanan::class, 'pendaftaran_id');
+    }
+
 }

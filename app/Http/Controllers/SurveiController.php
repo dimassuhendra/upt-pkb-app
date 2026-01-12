@@ -8,16 +8,16 @@ use Illuminate\Http\Request;
 
 class SurveiController extends Controller
 {
+    // app/Http/Controllers/SurveiController.php
+
     public function index()
     {
-        // 1. Perbaikan: Panggil nama relasi 'rating', bukan nama kolom 'skor_bintang'
-        $antreanSurvei = PendaftaranUji::whereIn('status_kelulusan', ['lulus', 'tidak_lulus'])
-            ->whereDoesntHave('RatingPelayanan')
+        $antreanSurvei = PendaftaranUji::whereIn('status_uji', ['Lulus', 'Tidak Lulus']) // Sesuaikan dengan enum di DB
+            ->whereDoesntHave('rating') // Memanggil fungsi rating() di Model
             ->with('kendaraan.pemilik')
-            ->orderBy('tgl_uji', 'asc')
-            ->first(); 
+            ->orderBy('tgl_daftar', 'asc') // Sesuai kolom di tabel 'pendaftaran'
+            ->first();
 
-        // 2. Ambil data petugas
         $petugas = Petugas::all();
 
         return view('survei.index', compact('antreanSurvei', 'petugas'));

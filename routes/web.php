@@ -105,5 +105,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/riwayat', [PemeriksaanController::class, 'riwayat'])->name('riwayat');
         Route::get('/profil', [DashboardController::class, 'profil'])->name('profil');
 
+        // 4. Riwayat & Lainnya
+
+
     });
 });
