@@ -131,6 +131,15 @@
         </div>
     </div>
 
+    @if($errors->any())
+    <div class="alert alert-danger border-0 shadow-sm rounded-3">
+        <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <div class="modal fade" id="modalForm" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content border-0 shadow-lg">
@@ -284,6 +293,30 @@
     <form id="formDelete" action="" method="POST" style="display:none">
         @csrf @method('DELETE')
     </form>
+
+    <div class="modal fade" id="modalDuplicate" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-body text-center p-5">
+                    <div class="mb-4">
+                        <i class="fa fa-exclamation-circle text-danger" style="font-size: 60px;"></i>
+                    </div>
+                    <h4 class="fw-bold">Data Duplikat!</h4>
+                    <p class="text-muted">{{ session('error_duplicate') }}</p>
+                    <button type="button" class="btn btn-danger rounded-pill px-5" data-bs-dismiss="modal">Saya Mengerti</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if(session('error_duplicate'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var myModal = new bootstrap.Modal(document.getElementById('modalDuplicate'));
+            myModal.show();
+        });
+    </script>
+    @endif
 
     <script>
         function resetForm() {

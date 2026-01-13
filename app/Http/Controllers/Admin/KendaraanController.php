@@ -44,25 +44,36 @@ class KendaraanController extends Controller
 
     public function store(Request $request)
     {
-        // 3. Tambahkan validasi untuk semua field penting
-        $request->validate([
-            'pemilik_id' => 'required|exists:pemilik,id',
-            'no_kendaraan' => 'required|string|max:15|unique:kendaraan,no_kendaraan',
-            'no_rangka' => 'required|string|unique:kendaraan,no_rangka',
-            'no_mesin' => 'nullable|string',
-            'masa_berlaku_uji_kir' => 'nullable|date',
-            'bahan_bakar' => [
-                'required',
-                Rule::in(['Solar', 'Bensin', 'Gas', 'Listrik']),
-            ],
-            'jenis_kendaraan' => [
-                'required',
-                Rule::in(['Mobil Penumpang', 'Mobil Bus', 'Mobil Barang', 'Kereta Gandengan', 'Kereta Tempelan']),
-            ],
-        ]);
+        try {
+            // 3. Tambahkan validasi untuk semua field penting
+            $request->validate([
+                'pemilik_id' => 'required|exists:pemilik,id',
+                'no_kendaraan' => 'required|string|max:15|unique:kendaraan,no_kendaraan',
+                'no_rangka' => 'required|string|unique:kendaraan,no_rangka',
+                'no_mesin' => 'nullable|string',
+                'masa_berlaku_uji_kir' => 'nullable|date',
+                'bahan_bakar' => [
+                    'required',
+                    Rule::in(['Solar', 'Bensin', 'Gas', 'Listrik']),
+                ],
+                'jenis_kendaraan' => [
+                    'required',
+                    Rule::in(['Mobil Penumpang', 'Mobil Bus', 'Mobil Barang', 'Kereta Gandengan', 'Kereta Tempelan']),
+                ],
+            ]);
 
-        Kendaraan::create($request->all());
-        return redirect()->back()->with('success', 'Data kendaraan berhasil disimpan');
+            Kendaraan::create($request->all());
+            return redirect()->back()->with('success', 'Data kendaraan berhasil disimpan');
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Cek jika error code adalah 23000 (Integrity constraint violation)
+            if ($e->errorInfo[1] == 1062) {
+                return redirect()->back()
+                    ->withInput() // Agar data yang sudah diketik tidak hilang
+                    ->with('error_duplicate', 'Gagal! Plat Nomor atau No. Rangka sudah terdaftar di sistem.');
+            }
+            return redirect()->back()->with('error', 'Terjadi kesalahan database.');
+        }
     }
 
     public function update(Request $request, $id)
