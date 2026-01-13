@@ -26,38 +26,38 @@
         @include('admin.sidebar')
 
         <div class="main-content">
-            <header class="admin-header">
-                <div class="header-left">
-                    <div class="page-info">
-                        <h4 class="font-header">Panel Administrator</h4>
-                        <nav class="breadcrumb">
-                            <span>Admin</span>
-                            <i class="fa fa-chevron-right"></i>
-                            <span class="current-page">{{ ucfirst(Request::segment(2)) }}</span>
+            <header class="admin-header border-bottom shadow-sm bg-white">
+                <div class="container-fluid py-3">
+                    <div class="row align-items-center">
+                        <div class="col-2 text-start">
+                            <img src="{{ asset('img/logo-bandarlampung.png') }}" alt="Logo Pemkot" style="height: 80px; width: auto;">
+                        </div>
+
+                        <div class="col-8 text-center">
+                            <div class="instansi-title">
+                                <h5 class="m-0 fw-bold text-uppercase" style="letter-spacing: 1.5px; font-size: 16px; color: #1f2937;">
+                                    Pemerintah Kota Bandar Lampung
+                                </h5>
+                                <h2 class="m-0 fw-bold text-uppercase" style="letter-spacing: 2px; color: #111827; font-size: 26px;">
+                                    Dinas Perhubungan
+                                </h2>
+                                <p class="m-0 text-muted" style="font-size: 11px; letter-spacing: 0.5px;">
+                                    JL. BASUKI RAHMAT NO. 34, SUMUR PUTRI, TLK BETUNG UTARA, KOTA BANDAR LAMPUNG, LAMPUNG 35211
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-2 text-end">
+                            <img src="{{ asset('img/logo-dishub.png') }}" alt="Logo Dishub" style="height: 80px; width: auto;">
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-3">
+                        <nav class="breadcrumb bg-light px-3 py-1 rounded-pill border" style="font-size: 12px;">
+                            <span class="text-muted">Admin</span>
+                            <i class="fa fa-chevron-right mx-2 text-muted" style="font-size: 9px; align-self: center;"></i>
+                            <span class="text-primary fw-bold">{{ ucfirst(Request::segment(2)) }}</span>
                         </nav>
-                    </div>
-
-                </div>
-
-                <div class="header-right">
-                    <div class="digital-clock">
-                        <i class="fa-regular fa-clock"></i>
-                        <span id="clock">00:00:00</span>
-                    </div>
-
-                    <div class="header-icon-btn">
-                        <i class="fa-regular fa-bell"></i>
-                        <span class="notification-dot"></span>
-                    </div>
-
-                    <div class="user-profile-wrapper">
-                        <div class="user-info">
-                            <span class="user-name">{{ Auth::user()->name }}</span>
-                            <span class="user-role">{{ Auth::user()->role }}</span>
-                        </div>
-                        <div class="user-avatar">
-                            {{ substr(Auth::user()->name, 0, 1) }}
-                        </div>
                     </div>
                 </div>
             </header>

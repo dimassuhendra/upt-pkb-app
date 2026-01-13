@@ -108,9 +108,18 @@
 
 <div class="sidebar">
     <div style="padding: 0 10px;">
-        <h2 class="font-header" style="font-size: 20px; margin-bottom: 30px; letter-spacing: 1px;">
-            <i class="fa-solid fa-truck-ramp-box mr-2"></i> PKB DIGITAL
-        </h2>
+        <div class="p-3 text-white border-bottom border-white border-opacity-25 mb-4">
+            <h2 class="d-flex align-items-center mb-4 text-white" style="font-size: 1.25rem; letter-spacing: 1px;">
+                <i class="fa-solid fa-truck-ramp-box me-3 fs-4"></i>
+                <span class="fw-bold">PKB DIGITAL</span>
+            </h2>
+            <div class="text-center p-2 rounded-pill bg-black bg-opacity-25 border border-white border-opacity-25 shadow-inner">
+                <div class="fw-bold text-truncate" style="font-size: 14px;">{{ Auth::user()->name }}</div>
+                <div class="d-flex align-items-center justify-content-center">
+                    <span id="clock" class="font-monospace fw-bold fs-5" style="letter-spacing: 2px;">00:00:00</span>
+                </div>
+            </div>
+        </div>
 
         <nav class="sidebar-nav">
             <p class="nav-label">Main</p>
@@ -132,7 +141,8 @@
                 class="nav-link {{ request()->routeIs('admin.hasil-uji.index') ? 'active' : ''}}">
                 <i class="fa fa-clipboard-check"></i> Rekap Hasil Uji
             </a>
-            <a href="{{ route('admin.riwayat.index') }}" class="nav-link {{ request()->routeIs('admin.riwayat.index') ? 'active' : ''}}">
+            <a href="{{ route('admin.riwayat.index') }}"
+                class="nav-link {{ request()->routeIs('admin.riwayat.index') ? 'active' : ''}}">
                 <i class="fa fa-history"></i> Riwayat Uji
             </a>
 
@@ -154,7 +164,8 @@
             <a href="#" class="nav-link">
                 <i class="fa fa-star"></i> Rating & Feedback
             </a>
-            <a href="{{ route('admin.laporan.index') }}" class="nav-link {{ request()->routeIs('admin.laporan.index') ? 'active' : ''}}">
+            <a href="{{ route('admin.laporan.index') }}"
+                class="nav-link {{ request()->routeIs('admin.laporan.index') ? 'active' : ''}}">
                 <i class="fa fa-file-pdf"></i> Laporan Periodik
             </a>
 

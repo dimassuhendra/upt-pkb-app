@@ -28,6 +28,44 @@ h4,
     font-weight: 700;
 }
 
+.admin-header {
+    background-color: #ffffff;
+    width: 100%;
+}
+
+.admin-header .row {
+    max-width: 1200px;
+    margin: 0 auto;
+    /* Memastikan konten tetap di tengah pada layar ultra-wide */
+}
+
+@media (max-width: 768px) {
+    .admin-header img {
+        height: 50px !important;
+        /* Logo mengecil di mobile */
+    }
+
+    .instansi-title h2 {
+        font-size: 18px !important;
+    }
+}
+
+.instansi-title h2 {
+    margin-top: 2px !important;
+    margin-bottom: 2px !important;
+}
+
+.breadcrumb {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+/* Menghilangkan margin bawaan breadcrumb bootstrap jika ada */
+.breadcrumb-item+.breadcrumb-item::before {
+    content: none;
+}
+
 /* Base Card Style */
 .card-custom {
     background: var(--white);
