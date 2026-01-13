@@ -112,9 +112,14 @@
                                     <td class="text-center">
                                         <div class="btn-group shadow-sm rounded-pill bg-white border">
                                             <button class="btn btn-sm btn-white text-primary border-0"
-                                                onclick="editData({{ json_encode($k) }})"><i class="fa fa-edit"></i></button>
+                                                    onclick="showDetail({{ json_encode($k) }})" title="Detail">
+                                                <i class="fa fa-eye"></i>
+                                            </button>
+                                            
+                                            <button class="btn btn-sm btn-white text-warning border-0"
+                                                    onclick="editData({{ json_encode($k) }})"><i class="fa fa-edit"></i></button>
                                             <button class="btn btn-sm btn-white text-danger border-0"
-                                                onclick="deleteData({{ $k->id }})"><i class="fa fa-trash"></i></button>
+                                                    onclick="deleteData({{ $k->id }})"><i class="fa fa-trash"></i></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -318,6 +323,104 @@
     </script>
     @endif
 
+    <div class="modal fade" id="modalDetail" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header bg-primary text-white p-4">
+                    <h5 class="modal-title fw-bold">
+                        <i class="bi bi-truck me-2"></i>Detail Spesifikasi Kendaraan
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body p-4 bg-light">
+                    <div class="row g-4">
+                        
+                        <div class="col-md-4">
+                            <div class="card h-100 border-0 shadow-sm rounded-3">
+                                <div class="card-body">
+                                    <h6 class="text-primary fw-bold mb-3 small text-uppercase border-bottom pb-2">Identitas</h6>
+                                    
+                                    <div class="mb-3">
+                                        <label class="text-muted d-block small">No. Kendaraan</label>
+                                        <span id="d_no_ken" class="fw-bold text-dark fs-5"></span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="text-muted d-block small">Pemilik</label>
+                                        <span id="d_pemilik" class="fw-semibold text-secondary"></span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="text-muted d-block small">No. Rangka</label>
+                                        <span id="d_rangka" class="text-secondary small"></span>
+                                    </div>
+                                    <div class="mb-0">
+                                        <label class="text-muted d-block small">No. Mesin</label>
+                                        <span id="d_mesin" class="text-secondary small"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card h-100 border-0 shadow-sm rounded-3">
+                                <div class="card-body">
+                                    <h6 class="text-primary fw-bold mb-3 small text-uppercase border-bottom pb-2">Spesifikasi Teknis</h6>
+                                    
+                                    <div class="mb-2">
+                                        <label class="text-muted d-block small">Merek / Tipe</label>
+                                        <span id="d_merek_tipe" class="fw-semibold text-dark"></span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="text-muted d-block small">Jenis / Model</label>
+                                        <span id="d_jenis_model" class="text-secondary"></span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="text-muted d-block small">Tahun Buat / Rakit</label>
+                                        <span id="d_tahun" class="text-secondary"></span>
+                                    </div>
+                                    <div class="mb-0">
+                                        <label class="text-muted d-block small">Bahan Bakar / CC</label>
+                                        <span id="d_bbm_cc" class="text-secondary"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card h-100 border-0 shadow-sm rounded-3">
+                                <div class="card-body">
+                                    <h6 class="text-primary fw-bold mb-3 small text-uppercase border-bottom pb-2">Dimensi & Berat</h6>
+                                    
+                                    <div class="mb-2">
+                                        <label class="text-muted d-block small">JBB / JBI</label>
+                                        <span id="d_jbb_jbi" class="text-secondary"></span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="text-muted d-block small">Berat Kosong</label>
+                                        <span id="d_berat_k" class="text-secondary"></span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="text-muted d-block small">Jml Roda / Sumbu</label>
+                                        <span id="d_roda_sumbu" class="text-secondary"></span>
+                                    </div>
+                                    <div class="mt-3 p-2 bg-warning bg-opacity-10 rounded border border-warning border-opacity-25">
+                                        <label class="text-dark d-block small fw-bold text-uppercase">Berlaku KIR</label>
+                                        <span id="d_kir" class="fw-bold text-danger fs-6"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                
+                <div class="modal-footer border-0 bg-light p-3">
+                    <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         function resetForm() {
             document.getElementById('modalTitle').innerText = 'Registrasi Kendaraan Baru';
@@ -365,6 +468,30 @@
                 form.action = "/admin/kendaraan/" + id;
                 form.submit();
             }
+        }
+
+        // FUNGSI DETAIL KENDARAAN
+        function showDetail(data) {
+            // Identitas
+            document.getElementById('d_no_ken').innerText = data.no_kendaraan;
+            document.getElementById('d_pemilik').innerText = data.pemilik ? data.pemilik.nama_lengkap : '-';
+            document.getElementById('d_rangka').innerText = data.no_rangka;
+            document.getElementById('d_mesin').innerText = data.no_mesin ?? '-';
+
+            // Teknis
+            document.getElementById('d_merek_tipe').innerText = (data.merek ?? '-') + ' / ' + (data.tipe ?? '-');
+            document.getElementById('d_jenis_model').innerText = (data.jenis_kendaraan ?? '-') + ' / ' + (data.model ?? '-');
+            document.getElementById('d_tahun').innerText = (data.tahun_pembuatan ?? '-') + ' / ' + (data.tahun_perakitan ?? '-');
+            document.getElementById('d_bbm_cc').innerText = (data.bahan_bakar ?? '-') + ' / ' + (data.isi_silinder ?? '-') + ' CC';
+
+            // Berat & Dimensi
+            document.getElementById('d_jbb_jbi').innerText = (data.jbb ?? '0') + ' kg / ' + (data.jbi ?? '0') + ' kg';
+            document.getElementById('d_berat_k').innerText = (data.berat_kosong ?? '0') + ' kg';
+            document.getElementById('d_roda_sumbu').innerText = (data.jumlah_roda ?? '0') + ' Roda / ' + (data.jumlah_sumbu ?? '0') + ' Sumbu';
+            document.getElementById('d_kir').innerText = data.masa_berlaku_uji_kir ?? '-';
+
+            // Tampilkan Modal
+            new bootstrap.Modal(document.getElementById('modalDetail')).show();
         }
     </script>
 @endsection
