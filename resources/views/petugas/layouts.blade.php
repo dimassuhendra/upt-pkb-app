@@ -39,21 +39,6 @@
                         <i class="fa-regular fa-clock"></i>
                         <span id="clock">00:00:00</span>
                     </div>
-
-                    <div class="header-icon-btn">
-                        <i class="fa-regular fa-bell"></i>
-                        <span class="notification-dot"></span>
-                    </div>
-
-                    <div class="user-profile-wrapper">
-                        <div class="user-info">
-                            <span class="user-name">{{ Auth::user()->name }}</span>
-                            <span class="user-role">{{ Auth::user()->role }}</span>
-                        </div>
-                        <div class="user-avatar">
-                            {{ substr(Auth::user()->name, 0, 1) }}
-                        </div>
-                    </div>
                 </div>
             </header>
 

@@ -42,4 +42,9 @@ class PendaftaranUji extends Model
         return $this->hasOne(RatingPelayanan::class, 'pendaftaran_id');
     }
 
+    public function hasil()
+    {
+        return $this->hasOne(HasilUji::class, 'pendaftaran_id');
+    }
+
 }
