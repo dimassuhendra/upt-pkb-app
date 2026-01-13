@@ -14,11 +14,27 @@ class PemeriksaanController extends Controller
     // Fungsi pembantu untuk memanggil view berdasarkan nama file
     private function showForm($id, $viewName)
     {
-        // Gunakan with('kendaraan') agar tidak N+1 query
         $pendaftaran = PendaftaranUji::with('kendaraan')->findOrFail($id);
-
-        // Ambil hasil uji jika sudah ada (untuk keperluan edit atau melihat data pos sebelumnya)
         $hasil = HasilUji::where('pendaftaran_id', $id)->first();
+        $posPetugas = auth()->user()->pos_tugas;
+
+        // Mapping kolom yang sama dengan di AntreanController
+        $mappingKolom = [
+            'Pos 1' => 'kondisi_ban',
+            'Pos 2' => 'emisi_co',
+            'Pos 3' => 'rem_utama_kiri',
+            'Pos 4' => 'lampu_utama_kekuatan',
+            'Pos 5' => 'side_slip',
+        ];
+
+        // Cek jika data sudah ada untuk pos ini, langsung tendang keluar
+        if ($hasil && isset($mappingKolom[$posPetugas])) {
+            $kolom = $mappingKolom[$posPetugas];
+            if (!empty($hasil->$kolom)) {
+                return redirect()->route('petugas.antrean')
+                    ->with('error', 'Kendaraan ini sudah selesai diperiksa di ' . $posPetugas);
+            }
+        }
 
         return view('petugas.pemeriksaan.' . $viewName, compact('pendaftaran', 'hasil'));
     }
@@ -46,29 +62,43 @@ class PemeriksaanController extends Controller
 
     public function store(Request $request, $id)
     {
-        // 1. Validasi Dasar (Mencegah input kosong yang fatal)
-        // Anda bisa menambahkan validasi spesifik tiap pos di sini jika perlu
+        // Validasi tambahan untuk Pos 5
+        if (Auth::user()->pos_tugas == 'Pos 5') {
+            $request->validate([
+                'hasil_akhir' => 'required',
+                'side_slip' => 'required',
+                // Jika hasil lulus, masa berlaku wajib ada
+                'masa_berlaku_sampai' => 'required_if:hasil_akhir,Lulus',
+            ]);
+        }
 
         try {
             DB::beginTransaction();
 
+            // Ambil semua data kecuali token
             $data = $request->except(['_token']);
             $data['pendaftaran_id'] = $id;
-
-            // Catat ID petugas terakhir yang melakukan update
             $data['petugas_id'] = Auth::id();
 
-            // 2. UpdateOrCreate agar data tertumpuk di baris yang sama (1 kendaraan = 1 baris hasil)
+            // LOGIKA KHUSUS POS 5: 
+            // Pastikan jika status 'tidak_lulus', masa berlaku diset null agar tidak rancu
+            if ($request->hasil_akhir == 'Tidak Lulus') {
+                $data['masa_berlaku_sampai'] = null;
+            }
+
+            // Simpan atau Update
             HasilUji::updateOrCreate(
                 ['pendaftaran_id' => $id],
                 $data
             );
 
-            // 3. Logika Update Status Pendaftaran
             $posPetugas = Auth::user()->pos_tugas;
 
-            // Jika Pos 5, anggap selesai. Jika pos lain, set ke 'proses'
-            $status = ($posPetugas == 'Pos 5') ? 'selesai' : 'proses';
+            // Update Status di Tabel Pendaftaran
+            // Jika Pos 5 dan Lulus -> Selesai
+            // Jika Pos 5 tapi Tidak Lulus -> Tetap 'proses' atau 'gagal' (tergantung kebijakan)
+            // Di sini kita ikuti logika Anda: Pos 5 = Selesai
+            $status = ($posPetugas == 'Pos 5') ? 'Lulus' : 'Proses';
 
             PendaftaranUji::where('id', $id)->update(['status_uji' => $status]);
 
@@ -77,7 +107,9 @@ class PemeriksaanController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage())->withInput();
+            // Log error untuk debug (cek storage/logs/laravel.log)
+            \Log::error("Gagal simpan Pos 5: " . $e->getMessage());
+            return back()->with('error', 'Gagal menyimpan: ' . $e->getMessage())->withInput();
         }
     }
 
