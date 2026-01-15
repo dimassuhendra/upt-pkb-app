@@ -45,7 +45,7 @@
                                         </span>
                                     </td>
                                     <td class="text-center">
-                                        <a href="{{ route('admin.hasil_uji.cetak', $r->id) }}" target="_blank"
+                                        <a href="{{ route('admin.hasil-uji.cetak', $r->id) }}" target="_blank"
                                             class="btn btn-sm btn-outline-primary rounded-pill px-3">
                                             <i class="fa fa-print me-1"></i> Cetak PDF
                                         </a>
