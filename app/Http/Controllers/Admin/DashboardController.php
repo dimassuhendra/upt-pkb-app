@@ -7,6 +7,7 @@ use App\Models\HasilUji;
 use App\Models\RatingPelayanan;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -21,10 +22,17 @@ class DashboardController extends Controller
             'gagal' => HasilUji::whereDate('created_at', $today)->where('hasil_akhir', 'tidak_lulus')->count(),
         ];
 
-        // Gunakan with() hanya untuk yang diperlukan, dan pastikan data tidak null
+        // Mengambil rating terbaru yang dikelompokkan per pendaftaran
         $recent_ratings = RatingPelayanan::with(['pendaftaran.kendaraan'])
-            ->latest()
-            ->limit(5)
+            ->select(
+                'pendaftaran_id',
+                DB::raw('AVG(skor_bintang) as rata_rata'),
+                DB::raw('MAX(komentar) as komentar_utama'), // Mengambil komentar (biasanya dari bag. administrasi)
+                DB::raw('MAX(created_at) as tgl_rating')
+            )
+            ->groupBy('pendaftaran_id')
+            ->latest('tgl_rating')
+            ->limit(10) // Kita tambah limitnya karena tabel sekarang lebih luas
             ->get();
 
         return view('admin.dashboard', compact('stats', 'recent_ratings'));

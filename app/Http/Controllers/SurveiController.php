@@ -3,23 +3,62 @@
 namespace App\Http\Controllers;
 
 use App\Models\PendaftaranUji;
-use App\Models\Petugas;
+use App\Models\RatingPelayanan; // Pastikan model Rating di-import
+use App\Models\User;   // Berdasarkan file SQL Anda, petugas ada di tabel users
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SurveiController extends Controller
 {
-    // app/Http/Controllers/SurveiController.php
-
     public function index()
     {
-        $antreanSurvei = PendaftaranUji::whereIn('status_uji', ['Lulus', 'Tidak Lulus']) // Sesuaikan dengan enum di DB
-            ->whereDoesntHave('rating') // Memanggil fungsi rating() di Model
+        // Mencari kendaraan yang sudah selesai uji tapi belum memberi rating
+        $antreanSurvei = PendaftaranUji::whereIn('status_uji', ['Lulus', 'Tidak Lulus'])
+            ->whereDoesntHave('rating')
             ->with('kendaraan.pemilik')
-            ->orderBy('tgl_daftar', 'asc') // Sesuai kolom di tabel 'pendaftaran'
+            ->orderBy('tgl_daftar', 'asc')
             ->first();
 
-        $petugas = Petugas::all();
+        return view('survei.index', compact('antreanSurvei'));
+    }
 
-        return view('survei.index', compact('antreanSurvei', 'petugas'));
+    public function store(Request $request)
+    {
+        // 1. Validasi input
+        $request->validate([
+            'pendaftaran_id' => 'required|exists:pendaftaran,id',
+            'ratings' => 'required|array|size:6', // Memastikan ada 6 aspek
+            'ratings.*.skor' => 'required|integer|min:1|max:5',
+            'komentar' => 'nullable|string|max:500',
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            // 2. Simpan setiap aspek layanan sebagai satu baris di tabel 'ratings'
+            foreach ($request->ratings as $aspek => $data) {
+
+                // Cari petugas yang bertugas di pos tersebut (opsional)
+                // Jika Anda belum punya sistem mapping jadwal, petugas_id bisa dikosongkan dulu
+                // atau diisi ID petugas yang memang bertugas di pos tersebut.
+
+                DB::table('ratings')->insert([
+                    'pendaftaran_id' => $request->pendaftaran_id,
+                    'aspek_layanan' => $aspek, // administrasi, pos_1, dst
+                    'skor_bintang' => $data['skor'],
+                    // Kita simpan komentar hanya di baris 'administrasi' agar tidak duplikat
+                    'komentar' => ($aspek == 'administrasi') ? $request->komentar : null,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+
+            DB::commit();
+            return redirect()->route('survei.index')->with('success', 'Terima kasih! Penilaian Anda sangat berarti bagi kami.');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
 }

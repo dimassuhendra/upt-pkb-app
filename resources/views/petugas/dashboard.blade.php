@@ -28,6 +28,90 @@
             align-items: center;
             justify-content: center;
         }
+
+        /* --- Dashboard Petugas Responsive --- */
+
+        /* Pengaturan Container */
+        .container-fluid {
+            padding: 1.5rem !important;
+        }
+
+        @media (max-width: 576px) {
+            .container-fluid {
+                padding: 1rem !important;
+            }
+        }
+
+        /* 1. Welcome Card Adaptation */
+        @media (max-width: 768px) {
+            .welcome-card {
+                text-align: center;
+            }
+
+            .welcome-card h2 {
+                font-size: 1.5rem;
+            }
+
+            .welcome-card .text-md-end {
+                text-align: center !important;
+                margin-top: 1rem;
+            }
+        }
+
+        /* 2. Stat Cards Grid */
+        @media (max-width: 1200px) {
+            .col-xl-3 {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .col-md-6.col-xl-3 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+
+            .stat-card .card-body {
+                padding: 1.25rem;
+            }
+        }
+
+        /* 3. Table Responsiveness */
+        .table-responsive {
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+
+            /* Menambahkan indikator scroll halus */
+            .table-responsive {
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* Memastikan konten tabel tetap terbaca */
+            table thead th {
+                white-space: nowrap;
+            }
+
+            table tbody td {
+                white-space: nowrap;
+                font-size: 13px;
+            }
+
+            /* Badge Plat Nomor di HP */
+            .badge.bg-light.text-dark {
+                font-size: 11px;
+                padding: 4px 8px;
+            }
+        }
+
+        /* 4. Optimization for Empty State */
+        @media (max-width: 576px) {
+            .empty-state img {
+                width: 80px;
+            }
+        }
     </style>
 
     <div class="container-fluid p-4">
