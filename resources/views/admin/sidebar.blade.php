@@ -135,7 +135,11 @@
             </a>
             <a href="{{ route('admin.antrean.index') }}"
                 class="nav-link {{ request()->routeIs('admin.antrean.index') ? 'active' : '' }}">
-                <i class="fa fa-list-ol"></i> Antrean Kendaraan
+                <i class="fa fa-list-ol"></i> Uji Baru
+            </a>
+            <a href="{{ route('admin.antrean.index') }}"
+                class="nav-link {{ request()->routeIs('admin.antrean.index') ? 'active' : '' }}">
+                <i class="fa fa-list-ol"></i> Input Data Kendaraan
             </a>
             <a href="{{ route('admin.hasil-uji.index') }}"
                 class="nav-link {{ request()->routeIs('admin.hasil-uji.index') ? 'active' : ''}}">

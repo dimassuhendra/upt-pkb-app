@@ -244,3 +244,127 @@ td {
     letter-spacing: 1px;
     border: 2px solid #334155;
 }
+
+/* --- RESPONSIVE LAYOUT EXTENSION --- */
+
+/* 1. Tablet & Small Laptop (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .stat-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* 4 kolom jadi 2 kolom */
+    }
+
+    .sidebar {
+        width: 80px;
+        /* Sidebar mengecil (hanya ikon) */
+        padding: 20px 10px;
+    }
+
+    .sidebar span {
+        display: none;
+    }
+
+    /* Sembunyikan teks menu sidebar */
+
+    .main-content {
+        padding: 20px;
+    }
+}
+
+/* 2. Mobile (max-width: 768px) */
+@media (max-width: 768px) {
+    .dashboard-wrapper {
+        flex-direction: column;
+        /* Sidebar pindah ke atas atau buat mekanisme toggle */
+    }
+
+    .sidebar {
+        width: 100%;
+        min-height: auto;
+        padding: 15px;
+    }
+
+    .admin-header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+        align-items: flex-start;
+    }
+
+    .header-left {
+        gap: 15px;
+        width: 100%;
+    }
+
+    .header-right {
+        width: 100%;
+        justify-content: space-between;
+        border-top: 1px solid #f1f5f9;
+        padding-top: 15px;
+    }
+
+    .user-profile-wrapper {
+        border-left: none;
+        padding-left: 0;
+    }
+
+    /* Tabel Responsif (Scroll Horizontal) */
+    .table-container {
+        overflow-x: auto;
+        /* Memungkinkan scroll ke samping jika tabel lebar */
+        padding: 15px;
+    }
+
+    table {
+        min-width: 600px;
+        /* Paksa tabel punya lebar minimal agar tidak penyok */
+    }
+}
+
+/* 3. Small Phone (max-width: 480px) */
+@media (max-width: 480px) {
+    .stat-grid {
+        grid-template-columns: 1fr;
+        /* 1 kolom penuh */
+    }
+
+    .digital-clock {
+        display: none;
+        /* Sembunyikan jam di HP kecil untuk hemat ruang */
+    }
+
+    .user-info {
+        display: none;
+        /* Sembunyikan nama/role, sisakan Avatar saja */
+    }
+
+    .header-right {
+        gap: 15px;
+    }
+
+    .breadcrumb {
+        font-size: 10px;
+    }
+
+    .main-content {
+        padding: 15px 10px;
+    }
+
+    .stat-card {
+        padding: 15px;
+    }
+
+    /* Card title & text */
+    h2 {
+        font-size: 1.2rem;
+    }
+}
+
+/* Utility: Tambahkan ini jika ingin menyembunyikan sidebar di Mobile secara total */
+@media (max-width: 768px) {
+
+    /* Contoh jika ingin menggunakan sistem hamburger menu nantinya */
+    .sidebar.collapsed {
+        display: none;
+    }
+}

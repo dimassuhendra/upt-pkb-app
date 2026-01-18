@@ -133,8 +133,12 @@
                         @endphp
 
                         <p
-                            style="font-weight: 600; color: #4b5563; margin-bottom: 15px; border-left: 4px solid #3b82f6; padding-left: 10px;">
-                            Berikan nilai untuk setiap loket pelayanan:
+                            style="font-weight: 600; color: #4b5563; margin-bottom: 15px; border-left: 4px solid #3b82f6; padding-left: 10px; text-align: justify;">
+                            Berikan penilaian untuk setiap loket pelayanan berdasarkan pengalaman yang Anda rasakan selama
+                            menerima layanan. Penilaian ini mencakup aspek kecepatan pelayanan, keramahan petugas, kejelasan
+                            informasi yang diberikan, serta kenyamanan selama proses pelayanan berlangsung. Masukan yang
+                            Anda berikan akan digunakan sebagai bahan evaluasi untuk meningkatkan kualitas pelayanan ke
+                            depannya
                         </p>
 
                         @foreach($listPos as $key => $label)

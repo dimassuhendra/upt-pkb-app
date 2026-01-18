@@ -24,7 +24,6 @@
             scroll-behavior: smooth;
         }
 
-        /* Memberikan offset agar saat scroll tidak tertutup navbar yang sticky */
         section {
             scroll-margin-top: 5rem;
         }
