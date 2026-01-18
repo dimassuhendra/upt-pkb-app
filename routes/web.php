@@ -24,6 +24,7 @@ use App\Http\Controllers\Petugas\PemeriksaanController;
 |--------------------------------------------------------------------------
 */
 Route::get('/', [LandingPageController::class, 'index'])->name('survei.index');
+Route::post('/cek-masa-berlaku', [LandingPageController::class, 'cekMasaBerlaku'])->name('cek.kir');
 Route::post('/survei/simpan', [SurveiController::class, 'store'])->name('survei.store');
 
 /*
