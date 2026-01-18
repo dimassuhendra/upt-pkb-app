@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\SurveiController;
 use App\Http\Controllers\AuthController;
 
@@ -22,7 +23,7 @@ use App\Http\Controllers\Petugas\PemeriksaanController;
 | Public Routes
 |--------------------------------------------------------------------------
 */
-Route::get('/', [SurveiController::class, 'index'])->name('survei.index');
+Route::get('/', [LandingPageController::class, 'index'])->name('survei.index');
 Route::post('/survei/simpan', [SurveiController::class, 'store'])->name('survei.store');
 
 /*

@@ -4,100 +4,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survei Kepuasan UPT PKB</title>
-    <link href="https://fonts.googleapis.com/css2?family=Domine:wght@400..700&family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-
-    <style>
-        .survey-wrapper { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; background-color: #f4f7f6; }
-        .header-accent { background: linear-gradient(135deg, #1e3a8a, #3b82f6); padding: 40px; color: white; text-align: center; border-radius: 15px 15px 0 0; }
-        .info-vehicle { background-color: #fff; border: 1px solid #e5e7eb; border-radius: 15px; padding: 15px; margin-bottom: 25px; display: flex; align-items: center; gap: 15px; }
-        .icon-circle { background: #eff6ff; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #1e3a8a; font-size: 20px; }
-        
-        /* Style untuk Rating Bintang Per Pos */
-        .pos-rating-item { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; border: 1px solid #eee; }
-        .pos-label { display: block; font-weight: 700; color: #333; margin-bottom: 8px; font-size: 15px; text-transform: uppercase; }
-        
-        .rating-stars { display: flex; flex-direction: row-reverse; justify-content: center; gap: 10px; }
-        .rating-stars input { display: none; }
-        .rating-stars label { cursor: pointer; font-size: 30px; color: #ddd; transition: 0.2s; }
-        .rating-stars input:checked ~ label,
-        .rating-stars label:hover,
-        .rating-stars label:hover ~ label { color: #facc15; }
-    </style>
+    <title>UPT PKB Kota Bandar Lampung - Layanan Uji KIR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3A59D1',
+                        secondary: '#2B42A1',
+                        accent: '#F0F4FF',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 
-<body>
-    <div class="survey-wrapper">
-        <div class="card-custom" style="max-width: 700px; width: 100%; background: white; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
-            <div class="header-accent">
-                <i class="fa-solid fa-square-poll-vertical fa-3x mb-3"></i>
-                <h1 style="margin: 0; font-size: 24px;">E-SURVEI LAYANAN</h1>
-                <p style="margin-top: 5px; opacity: 0.9;">Bantu kami meningkatkan kualitas pengujian kendaraan</p>
-            </div>
+<body class="bg-gray-50 font-sans">
 
-            <div class="survey-body" style="padding: 30px;">
-                @if($antreanSurvei)
-                    <div class="info-vehicle">
-                        <div class="icon-circle"><i class="fa-solid fa-truck-pickup"></i></div>
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center gap-3">
+                        <img class="h-12 w-auto"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Logo_Kota_Bandar_Lampung.png/480px-Logo_Kota_Bandar_Lampung.png"
+                            alt="Logo Bandar Lampung">
                         <div>
-                            <span style="font-size: 11px; color: #6b7280; font-weight: bold; display: block;">NOMOR KENDARAAN:</span>
-                            <span style="font-size: 20px; font-weight: 700; color: #1e3a8a;">{{ $antreanSurvei->kendaraan->no_kendaraan }}</span>
+                            <span class="text-primary font-bold text-xl block leading-none">UPT PKB</span>
+                            <span class="text-gray-500 text-xs font-semibold uppercase tracking-widest">Kota Bandar
+                                Lampung</span>
                         </div>
                     </div>
-
-                    <form action="{{ route('survei.store') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="pendaftaran_id" value="{{ $antreanSurvei->id }}">
-
-                        @php
-                            $listPos = [
-                                'administrasi' => 'Bagian Administrasi',
-                                'pos_1' => 'Pos 1 (Pra Uji)',
-                                'pos_2' => 'Pos 2 (Emisi & Kebisingan)',
-                                'pos_3' => 'Pos 3 (Rem & Lampu)',
-                                'pos_4' => 'Pos 4 (Bawah Kendaraan)',
-                                'pos_5' => 'Pos 5 (Pengesahan)',
-                            ];
-                        @endphp
-
-                        <p style="font-weight: 600; color: #4b5563; margin-bottom: 15px; border-left: 4px solid #3b82f6; padding-left: 10px;">
-                            Berikan nilai untuk setiap loket pelayanan:
-                        </p>
-
-                        @foreach($listPos as $key => $label)
-                        <div class="pos-rating-item">
-                            <span class="pos-label"><i class="fa-solid fa-location-dot mr-2" style="color: #3b82f6;"></i> {{ $label }}</span>
-                            <div class="rating-stars">
-                                @for($i = 5; $i >= 1; $i--)
-                                    <input type="radio" name="ratings[{{ $key }}][skor]" id="{{ $key }}_{{ $i }}" value="{{ $i }}" required>
-                                    <label for="{{ $key }}_{{ $i }}">★</label>
-                                @endfor
-                            </div>
-                        </div>
-                        @endforeach
-
-                        <div style="margin-top: 25px;">
-                            <label style="display:block; margin-bottom: 10px; font-weight: 600; color: #374151;">Saran & Kritik Keseluruhan:</label>
-                            <textarea name="komentar" rows="3"
-                                style="width:100%; padding:15px; border-radius:12px; border: 1px solid #d1d5db; resize: none;"
-                                placeholder="Apa yang perlu kami perbaiki dari seluruh proses pengujian?"></textarea>
-                        </div>
-
-                        <button type="submit" class="btn-primary-custom" style="width: 100%; padding: 15px; background: #1e3a8a; color: white; border: none; border-radius: 12px; font-weight: 700; font-size: 16px; cursor: pointer; margin-top: 20px; transition: 0.3s;">
-                            KIRIM SEMUA PENILAIAN <i class="fa-solid fa-paper-plane ml-2"></i>
-                        </button>
-                    </form>
-                @else
-                    <div style="text-align: center; padding: 40px 0;">
-                        <i class="fa-solid fa-circle-check" style="font-size: 80px; color: #10b981; margin-bottom: 20px;"></i>
-                        <h2 style="font-family: 'Fredoka', sans-serif; color: #1f2937;">Semua Sudah Dirating</h2>
-                        <p style="color: #6b7280;">Terima kasih. Tidak ada kendaraan dalam antrean survei saat ini.</p>
-                    </div>
-                @endif
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-gray-700 hover:text-primary font-medium">Beranda</a>
+                    <a href="#layanan" class="text-gray-700 hover:text-primary font-medium">Layanan</a>
+                    <a href="#alur" class="text-gray-700 hover:text-primary font-medium">Alur Uji</a>
+                    <a href="#"
+                        class="bg-primary text-white px-6 py-2 rounded-full font-semibold hover:bg-secondary transition duration-300">Daftar
+                        Online</a>
+                </div>
             </div>
         </div>
-    </div>
+    </nav>
+
+    <section class="relative bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center py-16 px-4 sm:px-6 lg:px-8">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-6">
+                    Layanan Pengujian Kendaraan <span class="text-primary">Terpercaya & Transparan</span>
+                </h1>
+                <p class="text-lg text-gray-600 mb-8">
+                    Pastikan kendaraan Anda layak jalan demi keselamatan bersama. UPT PKB Kota Bandar Lampung kini hadir
+                    dengan sistem digital untuk efisiensi waktu Anda.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#"
+                        class="bg-primary text-white text-center px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-secondary transition">
+                        <i class="fas fa-calendar-alt mr-2"></i> Booking Jadwal KIR
+                    </a>
+                    <a href="#"
+                        class="border-2 border-primary text-primary text-center px-8 py-4 rounded-lg font-bold hover:bg-accent transition">
+                        Cek Masa Berlaku
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative w-full max-w-lg">
+                    <div
+                        class="absolute top-0 -left-4 w-72 h-72 bg-primary opacity-10 rounded-full mix-blend-multiply filter blur-xl">
+                    </div>
+                    <div
+                        class="absolute -bottom-8 right-0 w-72 h-72 bg-blue-300 opacity-10 rounded-full mix-blend-multiply filter blur-xl">
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1590674852885-8c64507b3050?auto=format&fit=crop&q=80&w=800"
+                        alt="Truck Inspection" class="relative rounded-2xl shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="layanan" class="py-20 bg-accent">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900">Keunggulan Layanan Kami</h2>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition border-b-4 border-primary">
+                    <div
+                        class="w-14 h-14 bg-blue-100 text-primary flex items-center justify-center rounded-lg mb-6 text-2xl">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Smart Card (Blue-E)</h3>
+                    <p class="text-gray-600">Integrasi data pengujian digital yang lebih aman dan terpusat secara
+                        nasional.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition border-b-4 border-primary">
+                    <div
+                        class="w-14 h-14 bg-blue-100 text-primary flex items-center justify-center rounded-lg mb-6 text-2xl">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Proses Cepat</h3>
+                    <p class="text-gray-600">Alur pengujian yang sistematis menjamin efisiensi waktu bagi pemilik
+                        kendaraan.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition border-b-4 border-primary">
+                    <div
+                        class="w-14 h-14 bg-blue-100 text-primary flex items-center justify-center rounded-lg mb-6 text-2xl">
+                        <i class="fas fa-money-check-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Cashless Payment</h3>
+                    <p class="text-gray-600">Mendukung transparansi dengan pembayaran melalui sistem non-tunai / Bank
+                        Lampung.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary py-16">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold text-white mb-6">Siap Melakukan Pengujian?</h2>
+            <p class="text-blue-100 text-lg mb-10">Hindari denda dan pastikan keselamatan angkutan Anda di jalan raya.
+            </p>
+            <a href="#"
+                class="bg-white text-primary px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 shadow-xl transition">
+                Daftar Sekarang Juga
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div>
+                <h4 class="text-white font-bold text-lg mb-6">UPT PKB Kota Bandar Lampung</h4>
+                <p class="text-sm leading-relaxed">
+                    Instansi resmi di bawah Dinas Perhubungan Kota Bandar Lampung yang melayani pengujian kelaikan
+                    kendaraan bermotor wajib uji.
+                </p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-6">Kontak Kami</h4>
+                <ul class="space-y-4 text-sm">
+                    <li class="flex items-center gap-3"><i class="fas fa-map-marker-alt text-primary"></i> Jl. Terusan
+                        Ryacudu, Bandar Lampung</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-phone text-primary"></i> (0721) 1234567</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-envelope text-primary"></i>
+                        pkb@bandarlampungkota.go.id</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-6">Jam Operasional</h4>
+                <ul class="space-y-2 text-sm">
+                    <li class="flex justify-between"><span>Senin - Kamis:</span> <span>08:00 - 15:00</span></li>
+                    <li class="flex justify-between"><span>Jumat:</span> <span>08:00 - 11:30</span></li>
+                    <li class="flex justify-between border-t border-gray-700 pt-2 font-bold text-red-400"><span>Sabtu -
+                            Minggu:</span> <span>Tutup</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 mt-12 pt-8 border-t border-gray-800 text-center text-xs">
+            <p>&copy; {{ date('Y') }} UPT PKB Dinas Perhubungan Kota Bandar Lampung. Seluruh Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
 </body>
+
 </html>

@@ -19,7 +19,7 @@ class SurveiController extends Controller
             ->orderBy('tgl_daftar', 'asc')
             ->first();
 
-        return view('survei.index', compact('antreanSurvei'));
+        return view('survei.survei', compact('antreanSurvei'));
     }
 
     public function store(Request $request)
@@ -54,7 +54,7 @@ class SurveiController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('survei.index')->with('success', 'Terima kasih! Penilaian Anda sangat berarti bagi kami.');
+            return redirect()->route('survei.survei')->with('success', 'Terima kasih! Penilaian Anda sangat berarti bagi kami.');
 
         } catch (\Exception $e) {
             DB::rollBack();
