@@ -113,7 +113,8 @@
                 <i class="fa-solid fa-truck-ramp-box me-3 fs-4"></i>
                 <span class="fw-bold">PKB DIGITAL</span>
             </h2>
-            <div class="text-center p-2 rounded-pill bg-black bg-opacity-25 border border-white border-opacity-25 shadow-inner">
+            <div
+                class="text-center p-2 rounded-pill bg-black bg-opacity-25 border border-white border-opacity-25 shadow-inner">
                 <div class="fw-bold text-truncate" style="font-size: 14px;">{{ Auth::user()->name }}</div>
                 <div class="d-flex align-items-center justify-content-center">
                     <span id="clock" class="font-monospace fw-bold fs-5" style="letter-spacing: 2px;">00:00:00</span>
@@ -157,8 +158,10 @@
             </a>
 
             <p class="nav-label">Evaluasi</p>
-            <a href="{{ route('admin.rating.rekap') }}" class="nav-link">
-                <i class="fa fa-star"></i> Rating & Feedback
+            <a href="{{ route('admin.rating.rekap') }}"
+                class="nav-link {{ request()->routeIs('admin.rating.rekap') ? 'active' : '' }}">
+                <i class="fa fa-star text-warning"></i>
+                <span>Rating & Feedback</span>
             </a>
             <a href="{{ route('admin.laporan.index') }}"
                 class="nav-link {{ request()->routeIs('admin.laporan.index') ? 'active' : ''}}">

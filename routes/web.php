@@ -53,6 +53,8 @@ Route::middleware('auth')->group(function () {
 
     // Route Logout Global
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/rating', [RatingController::class, 'index'])->name('rating.index');
+    Route::post('/rating/store', [RatingController::class, 'store'])->name('rating.store');
 
     /**
      * Grouping Admin

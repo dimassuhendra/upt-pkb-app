@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class RatingController extends Controller
 {
     /**
-     * Menampilkan Form Rating untuk Pemilik Kendaraan
+     * Halaman untuk USER/PEMILIK mengisi rating
      */
     public function index(Request $request)
     {
@@ -19,22 +19,25 @@ class RatingController extends Controller
             $pendaftaran = PendaftaranUji::where('no_uji', $request->no_uji)->first();
         }
 
-        return view('rating', compact('pendaftaran'));
+        // Kita gunakan file yang sama tapi dengan flag mode 'input'
+        return view('admin.rating', [
+            'pendaftaran' => $pendaftaran,
+            'mode' => 'input'
+        ]);
     }
 
     /**
-     * Menyimpan Penilaian
+     * Simpan rating
      */
     public function store(Request $request)
     {
         $request->validate([
-            'pendaftaran_id' => 'required|exists:pendaftaran,id',
+            'kode_pendaftaran' => 'required|exists:kode_pendaftaran,id',
             'aspek_layanan' => 'required|string',
             'skor_bintang' => 'required|integer|between:1,5',
             'komentar' => 'nullable|string|max:500',
         ]);
 
-        // Cek Double Input untuk aspek yang sama
         $cek = RatingPelayanan::where('pendaftaran_id', $request->pendaftaran_id)
             ->where('aspek_layanan', $request->aspek_layanan)
             ->exists();
@@ -56,17 +59,22 @@ class RatingController extends Controller
     }
 
     /**
-     * Rekap untuk Admin
+     * Halaman untuk ADMIN melihat rekap
      */
-    public function adminRekap()
+    public function adminIndex()
     {
         $ratings = RatingPelayanan::with('pendaftaran.kendaraan')->latest()->paginate(10);
 
-        // Menghitung rata-rata skor per aspek
         $statistik = RatingPelayanan::selectRaw('aspek_layanan, AVG(skor_bintang) as rata_rata')
             ->groupBy('aspek_layanan')
             ->get();
 
-        return view('rating-rekap', compact('ratings', 'statistik'));
+        // Kita gunakan file yang sama tapi dengan flag mode 'rekap'
+        return view('admin.rating', [
+            'ratings' => $ratings,
+            'statistik' => $statistik,
+            'mode' => 'rekap',
+            'pendaftaran' => null // Set null agar tidak kena error undefined
+        ]);
     }
 }
