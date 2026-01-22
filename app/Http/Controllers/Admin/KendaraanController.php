@@ -33,8 +33,8 @@ class KendaraanController extends Controller
 
         $query->orderBy($sortBy, $sortOrder);
 
-        $optBahanBakar = ['Solar', 'Bensin', 'Gas', 'Listrik'];
-        $optJenis = ['Mobil Penumpang', 'Mobil Bus', 'Mobil Barang', 'Kereta Gandengan', 'Kereta Tempelan'];
+        $optBahanBakar = ['Solar', 'Bensin', 'Hybrid', 'Listrik'];
+        $optJenis = ['Bus', 'Truk', 'Angkot', 'Mobil Barang', 'Mobil Penumpang'];
 
         $kendaraans = $query->paginate(10)->withQueryString();
         $pemiliks = Pemilik::orderBy('nama_lengkap', 'asc')->get();
@@ -54,11 +54,11 @@ class KendaraanController extends Controller
                 'masa_berlaku_uji_kir' => 'nullable|date',
                 'bahan_bakar' => [
                     'required',
-                    Rule::in(['Solar', 'Bensin', 'Gas', 'Listrik']),
+                    Rule::in(['Solar', 'Bensin', 'Hybrid', 'Listrik']),
                 ],
                 'jenis_kendaraan' => [
                     'required',
-                    Rule::in(['Mobil Penumpang', 'Mobil Bus', 'Mobil Barang', 'Kereta Gandengan', 'Kereta Tempelan']),
+                    Rule::in(['Bus', 'Truk', 'Angkot', 'Mobil Barang', 'Mobil Penumpang']),
                 ],
             ]);
 

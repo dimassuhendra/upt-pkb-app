@@ -88,7 +88,7 @@
                                         <div class="d-flex justify-content-end">
                                             <button type="reset" class="btn btn-light me-3 px-4 rounded-pill">Batal</button>
                                             <button type="submit" class="btn btn-save">
-                                                <i class="fa fa-print me-2"></i> Simpan & Cetak Antrean
+                                                <i class="fa fa-print me-2"></i> Daftarkan
                                             </button>
                                         </div>
                                     </div>

@@ -181,7 +181,7 @@
                     <thead class="bg-light">
                         <tr style="font-size: 0.75rem;">
                             <th class="ps-4 text-secondary fw-bold">TANGGAL</th>
-                            <th class="text-secondary fw-bold">NOMOR UJI</th>
+                            <!-- <th class="text-secondary fw-bold">NOMOR UJI</th> -->
                             <th class="text-secondary fw-bold">PLAT NOMOR</th>
                             <th class="text-secondary fw-bold">JENIS KENDARAAN</th>
                             <th class="text-secondary fw-bold">HASIL AKHIR</th>
@@ -191,7 +191,7 @@
                         @forelse($data as $item)
                             <tr>
                                 <td class="ps-4">{{ $item->created_at->format('d/m/Y') }}</td>
-                                <td class="fw-medium text-dark">{{ $item->pendaftaran->no_uji }}</td>
+                                <!-- <td class="fw-medium text-dark">{{ $item->pendaftaran->no_uji }}</td> -->
                                 <td class="fw-bold text-primary">{{ $item->pendaftaran->kendaraan->no_kendaraan }}</td>
                                 <td>{{ $item->pendaftaran->kendaraan->jenis_kendaraan }}</td>
                                 <td>
