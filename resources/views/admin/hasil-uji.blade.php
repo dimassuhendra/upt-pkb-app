@@ -33,7 +33,7 @@
                                 <tr>
                                     <th class="ps-4">NO. ANTRI</th>
                                     <th>KENDARAAN</th>
-                                    <th>PEMILIK</th>
+                                    <!-- <th>PEMILIK</th> -->
                                     <th class="text-center">AKSI</th>
                                 </tr>
                             </thead>
@@ -46,7 +46,7 @@
                                             <div class="fw-bold">{{ $a->no_uji }}</div>
                                             <div class="small text-muted">{{ $a->kendaraan->no_kendaraan }}</div>
                                         </td>
-                                        <td>{{ $a->nama_pemilik }}</td>
+                                        <!-- <td>{{ $a->nama_lengkap }}</td> -->
                                         <td class="text-center">
                                             <button type="button" class="btn btn-primary btn-sm rounded-pill px-3"
                                                 data-bs-toggle="modal" data-bs-target="#modalInput{{ $a->id }}">
@@ -271,7 +271,7 @@
                                             <div class="fw-bold">{{ $r->pendaftaran->no_uji }}</div>
                                             <div class="small text-muted">{{ $r->pendaftaran->kendaraan->no_kendaraan }}</div>
                                         </td>
-                                        <td>{{ $r->pendaftaran->nama_pemilik }}</td>
+                                        <td>{{ $r->pendaftaran->nama_lengkap }}</td>
                                         <td>
                                             <span class="badge {{ $r->hasil_akhir == 'lulus' ? 'bg-success' : 'bg-danger' }}">
                                                 {{ strtoupper($r->hasil_akhir) }}
