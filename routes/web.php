@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\KendaraanController;
 use App\Http\Controllers\Admin\PemilikController;
 use App\Http\Controllers\Admin\PetugasController;
 use App\Http\Controllers\Admin\LaporanController;
+use App\Http\Controllers\Admin\RatingController;
 
 use App\Http\Controllers\Petugas\DashboardController;
 use App\Http\Controllers\Petugas\AntreanController as PetugasAntreanController;
@@ -63,6 +64,9 @@ Route::middleware('auth')->group(function () {
         // Transaksi dan Operasional
         Route::get('/pendaftaran/baru', [PendaftaranController::class, 'create'])->name('pendaftaran.create');
         Route::post('/pendaftaran/simpan', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
+        Route::get('/hasil-uji/input-baru', [HasilUjiController::class, 'createManual'])->name('hasil-uji.create-manual');
+        Route::post('/hasil-uji/simpan-manual', [HasilUjiController::class, 'storeManual'])->name('hasil-uji.store-manual');
+        Route::post('/hasil-uji/store/{id}', [HasilUjiController::class, 'store'])->name('hasil-uji.store');
         Route::get('/antrean', [AntreanController::class, 'index'])->name('antrean.index');
         Route::post('/antrean/{id}/next', [AntreanController::class, 'updateStatus'])->name('antrean.next');
         Route::get('/rekap-hasil', [HasilUjiController::class, 'hasil_uji'])->name('hasil-uji.index');
@@ -79,6 +83,7 @@ Route::middleware('auth')->group(function () {
         Route::patch('/petugas/{id}/update-pos', [PetugasController::class, 'updatePos'])->name('petugas.updatePos');
 
         // Evaluasi
+        Route::get('/rekap-rating', [RatingController::class, 'adminIndex'])->name('rating.rekap');
         Route::get('/laporan-periodik', [LaporanController::class, 'index'])->name('laporan.index');
     });
 
@@ -105,7 +110,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/pemeriksaan/detail/{id}', [PemeriksaanController::class, 'show'])->name('detail');
 
         // 4. Riwayat & Lainnya
-        Route::get('/riwayat', [PemeriksaanController::class, 'riwayat'])->name('riwayat');
+        Route::get('/admin/rekap-rating', [RatingController::class, 'adminRekap'])->name('rating-rekap')->middleware('auth');
         Route::get('/profil', [DashboardController::class, 'profil'])->name('profil');
 
         // 4. Riwayat & Lainnya

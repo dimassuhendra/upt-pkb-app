@@ -9,32 +9,37 @@ class AntreanController extends Controller
 {
     public function index()
     {
-        $antreanAktif = PendaftaranUji::with(['kendaraan'])
+        // Ubah nama variabel dari $antreanAktif menjadi $antrean
+        $antrean = PendaftaranUji::with(['kendaraan.pemilik'])
             ->whereDate('tgl_daftar', today())
             ->whereIn('status_uji', ['menunggu', 'proses'])
             ->orderBy('nomor_antrean', 'asc')
             ->get();
 
-        return view('admin.antrean', compact('antreanAktif'));
+        // Kirim dengan nama 'antrean'
+        return view('admin.antrean', compact('antrean'));
     }
 
+    // Perbaikan 2: Menggunakan Route Model Binding (PendaftaranUji $antrean)
     public function updateStatus(Request $request, $id)
     {
         $antrean = PendaftaranUji::findOrFail($id);
 
-        // Logika sederhana untuk memajukan posisi pos
+        // Maksimal Pos adalah 3
         if ($antrean->status_pos < 3) {
             $antrean->status_pos += 1;
+
+            // Jika masuk ke jalur, status berubah jadi proses
             $antrean->status_uji = 'proses';
 
-            if ($antrean->status_pos == 3) {
-                $antrean->status_uji = 'selesai';
-            }
-
             $antrean->save();
-            return redirect()->back()->with('success', 'Kendaraan berhasil dipindahkan ke Pos ' . $antrean->status_pos);
+
+            return redirect()->back()->with(
+                'success',
+                "Kendaraan {$antrean->kendaraan->no_kendaraan} berhasil dipindahkan ke Pos {$antrean->status_pos}"
+            );
         }
 
-        return redirect()->back()->with('info', 'Kendaraan sudah menyelesaikan semua tahapan.');
+        return redirect()->back()->with('info', 'Kendaraan sudah berada di tahap akhir jalur uji.');
     }
 }

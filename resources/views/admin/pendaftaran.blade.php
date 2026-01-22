@@ -70,10 +70,10 @@
                                     <div class="col-md-6 mb-4">
                                         <label class="form-label">Jenis Pendaftaran</label>
                                         <select name="jenis_pendaftaran" class="form-select">
-                                            <option value="Baru">Uji Pertama (Baru)</option>
-                                            <option value="Berkala">Uji Berkala (6 Bulan)</option>
-                                            <option value="Numpang Uji">Numpang Uji</option>
-                                            <option value="Mutasi">Mutasi</option>
+                                            <option value="1">Uji Pertama (Baru)</option>
+                                            <option value="2">Uji Berkala (6 Bulan)</option>
+                                            <option value="3">Numpang Uji</option>
+                                            <option value="5">Mutasi</option>
                                         </select>
                                     </div>
 

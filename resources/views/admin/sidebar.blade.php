@@ -133,17 +133,9 @@
                 class="nav-link {{ request()->routeIs('admin.pendaftaran.create') ? 'active' : '' }}">
                 <i class="fa fa-file-signature"></i> Pendaftaran Baru
             </a>
-            <a href="{{ route('admin.antrean.index') }}"
-                class="nav-link {{ request()->routeIs('admin.antrean.index') ? 'active' : '' }}">
-                <i class="fa fa-list-ol"></i> Uji Baru
-            </a>
-            <a href="{{ route('admin.antrean.index') }}"
-                class="nav-link {{ request()->routeIs('admin.antrean.index') ? 'active' : '' }}">
-                <i class="fa fa-list-ol"></i> Input Data Kendaraan
-            </a>
             <a href="{{ route('admin.hasil-uji.index') }}"
                 class="nav-link {{ request()->routeIs('admin.hasil-uji.index') ? 'active' : ''}}">
-                <i class="fa fa-clipboard-check"></i> Rekap Hasil Uji
+                <i class="fa fa-clipboard-check"></i> Input Hasil Uji
             </a>
             <a href="{{ route('admin.riwayat.index') }}"
                 class="nav-link {{ request()->routeIs('admin.riwayat.index') ? 'active' : ''}}">
@@ -165,7 +157,7 @@
             </a>
 
             <p class="nav-label">Evaluasi</p>
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.rating.rekap') }}" class="nav-link">
                 <i class="fa fa-star"></i> Rating & Feedback
             </a>
             <a href="{{ route('admin.laporan.index') }}"
