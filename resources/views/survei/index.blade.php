@@ -41,10 +41,12 @@
                         <img class="h-12 w-auto" src="{{ asset('img/logo-bandarlampung.png') }}"
                             alt="Logo Bandar Lampung">
                         <div>
-                            <span class="text-primary font-bold text-xl block leading-none">UPT PKB</span>
+                            <span class="text-primary text-center font-bold text-xl block leading-none">UPT PKB</span>
                             <span class="text-gray-500 text-xs font-semibold uppercase tracking-widest">Kota Bandar
                                 Lampung</span>
                         </div>
+                        <img class="h-12 w-auto" src="{{ asset('img/logo-dishub.png') }}"
+                            alt="Logo Bandar Lampung">
                     </div>
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
@@ -84,44 +86,44 @@
                     </form>
 
                     @if(session('error'))
-                        <div class="mt-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">
-                            <i class="fas fa-exclamation-circle mr-2"></i> {{ session('error') }}
-                        </div>
+                    <div class="mt-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">
+                        <i class="fas fa-exclamation-circle mr-2"></i> {{ session('error') }}
+                    </div>
                     @endif
 
                     @if(session('hasil'))
-                        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-primary rounded-r-lg">
-                            <h4 class="font-bold text-primary mb-2 text-sm">Hasil Pencarian:</h4>
-                            <div class="grid grid-cols-2 gap-2 text-xs">
-                                <p class="text-gray-500">No. Kendaraan:</p>
-                                <p class="font-bold uppercase">{{ session('hasil')->no_kendaraan }}</p>
+                    <div class="mt-6 p-4 bg-blue-50 border-l-4 border-primary rounded-r-lg">
+                        <h4 class="font-bold text-primary mb-2 text-sm">Hasil Pencarian:</h4>
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            <p class="text-gray-500">No. Kendaraan:</p>
+                            <p class="font-bold uppercase">{{ session('hasil')->no_kendaraan }}</p>
 
-                                <p class="text-gray-500">Merek/Tipe:</p>
-                                <p class="font-semibold">{{ session('hasil')->merek }} {{ session('hasil')->tipe }}</p>
+                            <p class="text-gray-500">Merek/Tipe:</p>
+                            <p class="font-semibold">{{ session('hasil')->merek }} {{ session('hasil')->tipe }}</p>
 
-                                <p class="text-gray-500">Masa Berlaku KIR:</p>
-                                <p class="font-bold text-red-600">
-                                    {{ \Carbon\Carbon::parse(session('hasil')->masa_berlaku_uji_kir)->translatedFormat('d F Y') }}
-                                </p>
-                            </div>
-
-                            @php
-                                $expired = \Carbon\Carbon::parse(session('hasil')->masa_berlaku_uji_kir);
-                                $isExpired = $expired->isPast();
-                            @endphp
-
-                            <div class="mt-3 pt-2 border-t border-blue-100">
-                                @if($isExpired)
-                                    <span
-                                        class="px-2 py-1 bg-red-600 text-white text-[10px] rounded-full uppercase font-bold">Masa
-                                        Berlaku Habis</span>
-                                @else
-                                    <span
-                                        class="px-2 py-1 bg-green-600 text-white text-[10px] rounded-full uppercase font-bold">Masih
-                                        Berlaku</span>
-                                @endif
-                            </div>
+                            <p class="text-gray-500">Masa Berlaku KIR:</p>
+                            <p class="font-bold text-red-600">
+                                {{ \Carbon\Carbon::parse(session('hasil')->masa_berlaku_uji_kir)->translatedFormat('d F Y') }}
+                            </p>
                         </div>
+
+                        @php
+                        $expired = \Carbon\Carbon::parse(session('hasil')->masa_berlaku_uji_kir);
+                        $isExpired = $expired->isPast();
+                        @endphp
+
+                        <div class="mt-3 pt-2 border-t border-blue-100">
+                            @if($isExpired)
+                            <span
+                                class="px-2 py-1 bg-red-600 text-white text-[10px] rounded-full uppercase font-bold">Masa
+                                Berlaku Habis</span>
+                            @else
+                            <span
+                                class="px-2 py-1 bg-green-600 text-white text-[10px] rounded-full uppercase font-bold">Masih
+                                Berlaku</span>
+                            @endif
+                        </div>
+                    </div>
                     @endif
                 </div>
             </div>

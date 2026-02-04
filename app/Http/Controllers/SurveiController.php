@@ -7,6 +7,7 @@ use App\Models\RatingPelayanan; // Pastikan model Rating di-import
 use App\Models\User;   // Berdasarkan file SQL Anda, petugas ada di tabel users
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Routing\Controller;
 
 class SurveiController extends Controller
 {
@@ -27,7 +28,7 @@ class SurveiController extends Controller
         // 1. Validasi input
         $request->validate([
             'pendaftaran_id' => 'required|exists:pendaftaran,id',
-            'ratings' => 'required|array|size:6', // Memastikan ada 6 aspek
+            'ratings' => 'required|array|size:6', 
             'ratings.*.skor' => 'required|integer|min:1|max:5',
             'komentar' => 'nullable|string|max:500',
         ]);
@@ -55,7 +56,6 @@ class SurveiController extends Controller
 
             DB::commit();
             return redirect()->route('survei.survei')->with('success', 'Terima kasih! Penilaian Anda sangat berarti bagi kami.');
-
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());

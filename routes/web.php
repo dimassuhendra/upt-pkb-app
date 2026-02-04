@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\SurveiController;
 use App\Http\Controllers\AuthController;
@@ -19,11 +18,13 @@ use App\Http\Controllers\Petugas\DashboardController;
 use App\Http\Controllers\Petugas\AntreanController as PetugasAntreanController;
 use App\Http\Controllers\Petugas\PemeriksaanController;
 
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Public Routes
 |--------------------------------------------------------------------------
 */
+
 Route::get('/', [LandingPageController::class, 'index'])->name('survei.index');
 Route::get('/isi-survei', [SurveiController::class, 'index'])->name('survei.survei');
 Route::post('/cek-masa-berlaku', [LandingPageController::class, 'cekMasaBerlaku'])->name('cek.kir');
