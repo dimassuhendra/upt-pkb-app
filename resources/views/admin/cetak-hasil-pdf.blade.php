@@ -169,7 +169,7 @@
         <tr>
             <td class="label">Nama Pemilik</td>
             <td class="colon">:</td>
-            <td>{{ strtoupper($data->pendaftaran->nama_pemilik) }}</td>
+            <td>{{ strtoupper($data->pendaftaran->kendaraan->pemilik->nama_lengkap ?? 'DATA TIDAK DITEMUKAN') }}</td>
         </tr>
         <tr>
             <td class="label">Tanggal Pengujian</td>
