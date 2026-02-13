@@ -32,7 +32,7 @@ class HasilUjiController extends Controller
      */
     public function store(Request $request, $id)
     {
-        // Validasi input minimal
+        // 1. Validasi input
         $request->validate([
             'hasil_akhir' => 'required|in:lulus,tidak_lulus',
             'emisi_co' => 'nullable|numeric',
@@ -41,38 +41,56 @@ class HasilUjiController extends Controller
             'rem_utama_kanan' => 'nullable|numeric',
         ]);
 
-        // 1. Simpan ke tabel hasil_uji
-        $hasil = new HasilUji();
+        try {
+            \DB::beginTransaction();
 
-        // Menggunakan fill() untuk mengambil semua data dari form Pos 1-5 
-        // yang namanya sesuai dengan $fillable di Model HasilUji
-        $hasil->fill($request->all());
+            // 2. Simpan ke tabel hasil_uji
+            $hasil = new HasilUji();
+            $hasil->fill($request->all());
+            $hasil->pendaftaran_id = $id;
+            $hasil->petugas_id = auth()->id();
 
-        $hasil->pendaftaran_id = $id;
-        $hasil->petugas_id = auth()->id();
+            // Logika masa berlaku di tabel hasil_uji
+            if ($request->hasil_akhir == 'lulus') {
+                $hasil->masa_berlaku_sampai = now()->addMonths(6);
+            }
+            $hasil->save();
 
-        // Logika masa berlaku jika lulus
-        if ($request->hasil_akhir == 'lulus') {
-            $hasil->masa_berlaku_sampai = now()->addMonths(6); // Berlaku 6 bulan
+            // 3. Update status di tabel pendaftaran
+            $pendaftaran = PendaftaranUji::findOrFail($id);
+            $pendaftaran->update([
+                'status_uji' => $request->hasil_akhir == 'lulus' ? 'Lulus' : 'Tidak Lulus',
+                'status_pos' => 5
+            ]);
+
+            // ============================================================
+            // LOGIKA PERBAIKAN: UPDATE TANGGAL DI TABEL KENDARAAN
+            // ============================================================
+            if ($request->hasil_akhir == 'lulus') {
+                // Ambil data kendaraan melalui relasi yang ada di model PendaftaranUji
+                $kendaraan = \App\Models\Kendaraan::find($pendaftaran->kendaraan_id);
+
+                if ($kendaraan) {
+                    $kendaraan->update([
+                        'masa_berlaku_uji_kir' => now()->addMonths(6)
+                    ]);
+                }
+            }
+            // ============================================================
+
+            \DB::commit();
+
+            return redirect()->route('admin.hasil-uji.index')->with([
+                'success' => 'Data hasil uji berhasil disimpan dan masa berlaku kendaraan telah diperbarui!',
+                'show_summary' => true,
+                'last_id' => $hasil->id,
+                'hasil_akhir' => $hasil->hasil_akhir,
+                'no_uji' => $pendaftaran->no_uji
+            ]);
+        } catch (\Exception $e) {
+            \DB::rollBack();
+            return back()->with('error', 'Gagal menyimpan data: ' . $e->getMessage());
         }
-
-        $hasil->save();
-
-        // 2. Update status di tabel pendaftaran
-        $pendaftaran = PendaftaranUji::findOrFail($id);
-        $pendaftaran->update([
-            'status_uji' => $request->hasil_akhir == 'lulus' ? 'Lulus' : 'Tidak Lulus',
-            'status_pos' => 5 // Tandai sudah melewati pos terakhir
-        ]);
-
-        // 3. Redirect dengan data session untuk memicu modal summary di View
-        return redirect()->route('admin.hasil-uji.index')->with([
-            'success' => 'Data hasil uji berhasil disimpan!',
-            'show_summary' => true,
-            'last_id' => $hasil->id,
-            'hasil_akhir' => $hasil->hasil_akhir,
-            'no_uji' => $pendaftaran->no_uji
-        ]);
     }
 
     /**
