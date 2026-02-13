@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\HasilUji; // Pastikan Model diimport
+use App\Models\RatingPelayanan; // Tambahkan import Model Rating
 use Barryvdh\DomPDF\Facade\Pdf; // Pastikan Library PDF diimport
 
 class LandingPageController extends Controller
@@ -12,7 +13,20 @@ class LandingPageController extends Controller
     public function index()
     {
         $title = "UPT PKB Kota Bandar Lampung";
-        return view('survei.index', compact('title'));
+
+        // 1. Ambil rata-rata skor bintang dari semua aspek untuk ditampilkan sebagai summary
+        $avgRating = DB::table('ratings')->avg('skor_bintang');
+
+        // 2. Ambil beberapa rating terbaru yang memiliki komentar untuk ditampilkan sebagai testimoni
+        // Kita gunakan eager loading untuk mengambil nama pemilik kendaraan jika diperlukan
+        $testimoni = RatingPelayanan::with(['pendaftaran.kendaraan.pemilik'])
+            ->whereNotNull('komentar')
+            ->where('tampilkan_publik', 1)
+            ->latest()
+            ->take(5)
+            ->get();
+
+        return view('survei.index', compact('title', 'avgRating', 'testimoni'));
     }
 
     public function cekMasaBerlaku(Request $request)

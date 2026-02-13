@@ -230,6 +230,58 @@
         </div>
     </section>
 
+    <section id="testimoni" class="py-20 bg-accent">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900">Apa Kata Mereka?</h2>
+                <p class="text-gray-500 mt-2">Kepuasan pelanggan adalah prioritas layanan kami</p>
+                
+                @if(isset($avgRating))
+                <div class="flex items-center justify-center mt-4">
+                    <div class="flex text-yellow-400 text-xl">
+                        @for($i = 1; $i <= 5; $i++)
+                            <i class="{{ $i <= round($avgRating) ? 'fas' : 'far' }} fa-star"></i>
+                        @endfor
+                    </div>
+                    <span class="ml-3 font-bold text-gray-700">{{ number_format($avgRating, 1) }} / 5.0</span>
+                </div>
+                @endif
+                <div class="w-20 h-1 bg-primary mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @forelse($testimoni as $item)
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-400 text-sm">
+                            @for($i = 1; $i <= 5; $i++)
+                                <i class="{{ $i <= $item->skor_bintang ? 'fas' : 'far' }} fa-star"></i>
+                            @endfor
+                        </div>
+                        <span class="ml-auto text-xs text-gray-400">
+                            {{ $item->created_at->diffForHumans() }}
+                        </span>
+                    </div>
+                    <p class="text-gray-600 italic mb-6">"{{ $item->komentar }}"</p>
+                    <div class="flex items-center gap-3 border-t pt-4">
+                        <div class="w-10 h-10 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold">
+                            {{ substr($item->pendaftaran->kendaraan->pemilik->nama ?? 'U', 0, 1) }}
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-gray-900">{{ $item->pendaftaran->kendaraan->pemilik->nama_lengkap ?? 'Pengguna Terverifikasi' }}</h4>
+                            <p class="text-[10px] text-gray-500 uppercase tracking-wider">{{ $item->pendaftaran->kendaraan->no_kendaraan }}</p>
+                        </div>
+                    </div>
+                </div>
+                @empty
+                <div class="col-span-full text-center py-10">
+                    <p class="text-gray-400 italic">Belum ada ulasan yang ditampilkan.</p>
+                </div>
+                @endforelse
+            </div>
+        </div>
+    </section>
+
     <footer class="bg-gray-900 text-gray-300 py-12">
         <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12">
             <div>
