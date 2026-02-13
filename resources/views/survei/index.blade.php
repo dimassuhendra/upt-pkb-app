@@ -45,8 +45,7 @@
                             <span class="text-gray-500 text-xs font-semibold uppercase tracking-widest">Kota Bandar
                                 Lampung</span>
                         </div>
-                        <img class="h-12 w-auto" src="{{ asset('img/logo-dishub.png') }}"
-                            alt="Logo Bandar Lampung">
+                        <img class="h-12 w-auto" src="{{ asset('img/logo-dishub.png') }}" alt="Logo Bandar Lampung">
                     </div>
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
@@ -74,8 +73,7 @@
                     <form action="{{ route('cek.kir') }}" method="POST" class="space-y-4">
                         @csrf
                         <div class="relative">
-                            <input type="text" name="no_kendaraan"
-                                placeholder="Contoh: B 1234 ABC"
+                            <input type="text" name="no_kendaraan" placeholder="Contoh: B 1234 ABC"
                                 class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent outline-none uppercase"
                                 required>
                         </div>
@@ -85,45 +83,54 @@
                         </button>
                     </form>
 
-                    @if(session('error'))
-                    <div class="mt-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">
-                        <i class="fas fa-exclamation-circle mr-2"></i> {{ session('error') }}
-                    </div>
+                    @if (session('error'))
+                        <div class="mt-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm">
+                            <i class="fas fa-exclamation-circle mr-2"></i> {{ session('error') }}
+                        </div>
                     @endif
 
-                    @if(session('hasil'))
-                    <div class="mt-6 p-4 bg-blue-50 border-l-4 border-primary rounded-r-lg">
-                        <h4 class="font-bold text-primary mb-2 text-sm">Hasil Pencarian:</h4>
-                        <div class="grid grid-cols-2 gap-2 text-xs">
-                            <p class="text-gray-500">No. Kendaraan:</p>
-                            <p class="font-bold uppercase">{{ session('hasil')->no_kendaraan }}</p>
+                    @if (session('hasil'))
+                        <div class="mt-6 p-4 bg-blue-50 border-l-4 border-primary rounded-r-lg">
+                            <h4 class="font-bold text-primary mb-2 text-sm">Hasil Pencarian:</h4>
+                            <div class="grid grid-cols-2 gap-2 text-xs">
+                                <p class="text-gray-500">No. Kendaraan:</p>
+                                <p class="font-bold uppercase">{{ session('hasil')->no_kendaraan }}</p>
 
-                            <p class="text-gray-500">Merek/Tipe:</p>
-                            <p class="font-semibold">{{ session('hasil')->merek }} {{ session('hasil')->tipe }}</p>
+                                <p class="text-gray-500">Merek/Tipe:</p>
+                                <p class="font-semibold">{{ session('hasil')->merek }} {{ session('hasil')->tipe }}</p>
 
-                            <p class="text-gray-500">Masa Berlaku KIR:</p>
-                            <p class="font-bold text-red-600">
-                                {{ \Carbon\Carbon::parse(session('hasil')->masa_berlaku_uji_kir)->translatedFormat('d F Y') }}
-                            </p>
+                                <p class="text-gray-500">Masa Berlaku KIR:</p>
+                                <p class="font-bold text-red-600">
+                                    {{ \Carbon\Carbon::parse(session('hasil')->masa_berlaku_uji_kir)->translatedFormat('d F Y') }}
+                                </p>
+                                <a href="{{ route('cetak.hasil.public', session('hasil_uji_id')) }}" target="_blank"
+                                    class="btn btn-primary">
+                                    Cetak Hasil Uji (PDF)
+                                </a>
+                            </div>
+
+                            @php
+                                $expired = \Carbon\Carbon::parse(session('hasil')->masa_berlaku_uji_kir);
+                                $isExpired = $expired->isPast();
+                            @endphp
+
+                            <div class="mt-3 pt-2 border-t border-blue-100">
+                                @if ($isExpired)
+                                    <span
+                                        class="px-2 py-1 bg-red-600 text-white text-[10px] rounded-full uppercase font-bold">Masa
+                                        Berlaku Habis</span>
+                                @else
+                                    <span
+                                        class="px-2 py-1 bg-green-600 text-white text-[10px] rounded-full uppercase font-bold">Masih
+                                        Berlaku</span>
+                                    <a href="{{ route('cetak.hasil.public', session('hasil_uji_id')) }}" target="_blank"
+                                        class="btn btn-primary">
+                                        <span
+                                            class="px-2 py-1 bg-green-600 text-white text-[10px] rounded-full uppercase font-bold">Cetak
+                                            Hasil Uji (PDF)</span> </a>
+                                @endif
+                            </div>
                         </div>
-
-                        @php
-                        $expired = \Carbon\Carbon::parse(session('hasil')->masa_berlaku_uji_kir);
-                        $isExpired = $expired->isPast();
-                        @endphp
-
-                        <div class="mt-3 pt-2 border-t border-blue-100">
-                            @if($isExpired)
-                            <span
-                                class="px-2 py-1 bg-red-600 text-white text-[10px] rounded-full uppercase font-bold">Masa
-                                Berlaku Habis</span>
-                            @else
-                            <span
-                                class="px-2 py-1 bg-green-600 text-white text-[10px] rounded-full uppercase font-bold">Masih
-                                Berlaku</span>
-                            @endif
-                        </div>
-                    </div>
                     @endif
                 </div>
             </div>
@@ -253,7 +260,8 @@
             </div>
         </div>
         <div class="max-w-7xl mx-auto px-4 mt-12 pt-8 border-t border-gray-800 text-center text-xs">
-            <p>&copy; {{ date('Y') }} UPT PKB Dinas Perhubungan Kota Bandar Lampung. Seluruh Hak Cipta Dilindungi.</p>
+            <p>&copy; {{ date('Y') }} UPT PKB Dinas Perhubungan Kota Bandar Lampung. Seluruh Hak Cipta Dilindungi.
+            </p>
         </div>
     </footer>
 

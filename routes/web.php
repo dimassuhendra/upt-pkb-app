@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/rating', [RatingController::class, 'index'])->name('rating.index');
     Route::post('/rating/store', [RatingController::class, 'store'])->name('rating.store');
+    Route::get('/cetak-hasil-uji/{id}', [LandingPageController::class, 'cetakHasilPublic'])->name('cetak.hasil.public');
 
     /**
      * Grouping Admin
