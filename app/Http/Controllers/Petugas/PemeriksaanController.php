@@ -67,26 +67,28 @@ class PemeriksaanController extends Controller
             $request->validate([
                 'hasil_akhir' => 'required',
                 'side_slip' => 'required',
-                // Jika hasil lulus, masa berlaku wajib ada
-                'masa_berlaku_sampai' => 'required_if:hasil_akhir,Lulus',
+                // Pastikan string 'lulus' sesuai dengan value di database (kecil semua)
+                'masa_berlaku_sampai' => 'required_if:hasil_akhir,lulus',
             ]);
         }
 
         try {
             DB::beginTransaction();
 
-            // Ambil semua data kecuali token
             $data = $request->except(['_token']);
             $data['pendaftaran_id'] = $id;
             $data['petugas_id'] = Auth::id();
 
-            // LOGIKA KHUSUS POS 5: 
-            // Pastikan jika status 'tidak_lulus', masa berlaku diset null agar tidak rancu
+            // Normalisasi data hasil_akhir agar sesuai enum database ('lulus'/'tidak_lulus')
+            if (isset($data['hasil_akhir'])) {
+                $data['hasil_akhir'] = strtolower(str_replace(' ', '_', $data['hasil_akhir']));
+            }
+
             if ($request->hasil_akhir == 'Tidak Lulus') {
                 $data['masa_berlaku_sampai'] = null;
             }
 
-            // Simpan atau Update
+            // 1. Simpan atau Update ke tabel hasil_uji
             HasilUji::updateOrCreate(
                 ['pendaftaran_id' => $id],
                 $data
@@ -94,21 +96,27 @@ class PemeriksaanController extends Controller
 
             $posPetugas = Auth::user()->pos_tugas;
 
-            // Update Status di Tabel Pendaftaran
-            // Jika Pos 5 dan Lulus -> Selesai
-            // Jika Pos 5 tapi Tidak Lulus -> Tetap 'proses' atau 'gagal' (tergantung kebijakan)
-            // Di sini kita ikuti logika Anda: Pos 5 = Selesai
-            $status = ($posPetugas == 'Pos 5') ? 'Lulus' : 'Proses';
+            // 2. LOGIKA UPDATE TABEL KENDARAAN (Hanya jika di Pos 5 dan Lulus)
+            if ($posPetugas == 'Pos 5' && strtolower($request->hasil_akhir) == 'lulus') {
+                $pendaftaran = PendaftaranUji::with('kendaraan')->findOrFail($id);
 
+                if ($pendaftaran->kendaraan) {
+                    // Update kolom masa_berlaku_uji_kir di tabel kendaraan
+                    $pendaftaran->kendaraan->update([
+                        'masa_berlaku_uji_kir' => $request->masa_berlaku_sampai
+                    ]);
+                }
+            }
+
+            // 3. Update Status di Tabel Pendaftaran
+            $status = ($posPetugas == 'Pos 5') ? 'Lulus' : 'Proses';
             PendaftaranUji::where('id', $id)->update(['status_uji' => $status]);
 
             DB::commit();
-            return redirect()->route('petugas.antrean')->with('success', 'Data ' . $posPetugas . ' berhasil disimpan!');
-
+            return redirect()->route('petugas.antrean')->with('success', 'Data berhasil disimpan dan masa berlaku KIR diperbarui!');
         } catch (\Exception $e) {
             DB::rollBack();
-            // Log error untuk debug (cek storage/logs/laravel.log)
-            \Log::error("Gagal simpan Pos 5: " . $e->getMessage());
+            \Log::error("Gagal simpan: " . $e->getMessage());
             return back()->with('error', 'Gagal menyimpan: ' . $e->getMessage())->withInput();
         }
     }
