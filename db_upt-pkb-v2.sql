@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 12, 2026 at 12:53 PM
+-- Generation Time: Apr 14, 2026 at 05:18 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -32,6 +32,13 @@ CREATE TABLE `cache` (
   `value` mediumtext NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cache`
+--
+
+INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
+('laravel-cache-boost.roster.scan', 'a:2:{s:6:\"roster\";O:21:\"Laravel\\Roster\\Roster\":3:{s:13:\"\0*\0approaches\";O:29:\"Illuminate\\Support\\Collection\":2:{s:8:\"\0*\0items\";a:0:{}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}s:11:\"\0*\0packages\";O:32:\"Laravel\\Roster\\PackageCollection\":2:{s:8:\"\0*\0items\";a:8:{i:0;O:22:\"Laravel\\Roster\\Package\":6:{s:9:\"\0*\0direct\";b:1;s:13:\"\0*\0constraint\";s:5:\"^12.0\";s:10:\"\0*\0package\";E:37:\"Laravel\\Roster\\Enums\\Packages:LARAVEL\";s:14:\"\0*\0packageName\";s:17:\"laravel/framework\";s:10:\"\0*\0version\";s:7:\"12.43.1\";s:6:\"\0*\0dev\";b:0;}i:1;O:22:\"Laravel\\Roster\\Package\":6:{s:9:\"\0*\0direct\";b:0;s:13:\"\0*\0constraint\";s:6:\"v0.3.8\";s:10:\"\0*\0package\";E:37:\"Laravel\\Roster\\Enums\\Packages:PROMPTS\";s:14:\"\0*\0packageName\";s:15:\"laravel/prompts\";s:10:\"\0*\0version\";s:5:\"0.3.8\";s:6:\"\0*\0dev\";b:0;}i:2;O:22:\"Laravel\\Roster\\Package\":6:{s:9:\"\0*\0direct\";b:0;s:13:\"\0*\0constraint\";s:6:\"v0.5.1\";s:10:\"\0*\0package\";E:33:\"Laravel\\Roster\\Enums\\Packages:MCP\";s:14:\"\0*\0packageName\";s:11:\"laravel/mcp\";s:10:\"\0*\0version\";s:5:\"0.5.1\";s:6:\"\0*\0dev\";b:1;}i:3;O:22:\"Laravel\\Roster\\Package\":6:{s:9:\"\0*\0direct\";b:1;s:13:\"\0*\0constraint\";s:5:\"^1.24\";s:10:\"\0*\0package\";E:34:\"Laravel\\Roster\\Enums\\Packages:PINT\";s:14:\"\0*\0packageName\";s:12:\"laravel/pint\";s:10:\"\0*\0version\";s:6:\"1.26.0\";s:6:\"\0*\0dev\";b:1;}i:4;O:22:\"Laravel\\Roster\\Package\":6:{s:9:\"\0*\0direct\";b:1;s:13:\"\0*\0constraint\";s:5:\"^1.41\";s:10:\"\0*\0package\";E:34:\"Laravel\\Roster\\Enums\\Packages:SAIL\";s:14:\"\0*\0packageName\";s:12:\"laravel/sail\";s:10:\"\0*\0version\";s:6:\"1.51.0\";s:6:\"\0*\0dev\";b:1;}i:5;O:22:\"Laravel\\Roster\\Package\":6:{s:9:\"\0*\0direct\";b:1;s:13:\"\0*\0constraint\";s:4:\"^4.2\";s:10:\"\0*\0package\";E:34:\"Laravel\\Roster\\Enums\\Packages:PEST\";s:14:\"\0*\0packageName\";s:12:\"pestphp/pest\";s:10:\"\0*\0version\";s:5:\"4.2.0\";s:6:\"\0*\0dev\";b:1;}i:6;O:22:\"Laravel\\Roster\\Package\":6:{s:9:\"\0*\0direct\";b:0;s:13:\"\0*\0constraint\";s:6:\"12.5.3\";s:10:\"\0*\0package\";E:37:\"Laravel\\Roster\\Enums\\Packages:PHPUNIT\";s:14:\"\0*\0packageName\";s:15:\"phpunit/phpunit\";s:10:\"\0*\0version\";s:6:\"12.5.3\";s:6:\"\0*\0dev\";b:1;}i:7;O:22:\"Laravel\\Roster\\Package\":6:{s:9:\"\0*\0direct\";b:0;s:13:\"\0*\0constraint\";s:0:\"\";s:10:\"\0*\0package\";E:41:\"Laravel\\Roster\\Enums\\Packages:TAILWINDCSS\";s:14:\"\0*\0packageName\";s:11:\"tailwindcss\";s:10:\"\0*\0version\";s:6:\"4.1.18\";s:6:\"\0*\0dev\";b:1;}}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}s:21:\"\0*\0nodePackageManager\";E:43:\"Laravel\\Roster\\Enums\\NodePackageManager:NPM\";}s:9:\"timestamp\";i:1768446037;}', 1768532437);
 
 -- --------------------------------------------------------
 
@@ -100,7 +107,41 @@ CREATE TABLE `hasil_uji` (
 --
 
 INSERT INTO `hasil_uji` (`id`, `pendaftaran_id`, `petugas_id`, `kondisi_ban`, `kondisi_kaca`, `klakson`, `wiper`, `lampu_sign`, `kedalaman_alur_ban`, `emisi_co`, `emisi_hc`, `emisi_asap_opasitas`, `rem_utama_kiri`, `rem_utama_kanan`, `selisih_rem_per_sumbu`, `rem_parkir`, `lampu_utama_kekuatan`, `lampu_utama_penyimpangan`, `kebisingan_desibel`, `side_slip`, `hasil_akhir`, `masa_berlaku_sampai`, `catatan_perbaikan`, `created_at`, `updated_at`) VALUES
-(1, 2, 3, 1, 1, 1, 1, 1, 0, 0.03, 3.00, 3.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-01-03 07:59:16', '2026-01-03 08:01:05');
+(2, 3, 6, 1, 1, 1, 1, 1, 0, 10.00, 4.00, 3.00, 1.00, 2.00, 0.11, 1.00, 2.00, 0.10, 0.60, -0.05, 'lulus', '2026-07-13', NULL, '2026-01-12 23:59:01', '2026-01-13 01:21:52'),
+(7, 8, 1, 1, 1, 1, 1, 1, 1, 2.00, 2.00, 2.00, 3.00, 4.00, 4.00, 4.00, 4.00, 4.00, 10.00, 3.00, 'lulus', '2026-07-22', 'Tidak ada masalah', '2026-01-22 06:42:16', '2026-01-22 06:42:16'),
+(8, 9, 1, 1, 1, 1, 1, 1, 1, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 'lulus', '2026-07-22', NULL, '2026-01-22 06:50:02', '2026-01-22 06:50:02'),
+(9, 7, 1, 1, 1, 1, 1, 1, 1, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 'lulus', '2026-08-13', NULL, '2026-02-13 00:42:05', '2026-02-13 00:42:05'),
+(10, 4, 1, 1, 1, 1, 1, 1, 1, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 'lulus', '2026-08-13', NULL, '2026-02-13 00:42:48', '2026-02-13 00:42:48'),
+(11, 10, 1, 1, 1, 1, 1, 1, 1, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 'lulus', '2026-08-13', NULL, '2026-02-13 00:47:48', '2026-02-13 00:47:48'),
+(12, 11, 1, 1, 1, 1, 1, 1, 1, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 2.00, 'lulus', '2026-08-13', NULL, '2026-02-13 00:51:02', '2026-02-13 00:51:02');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jenis_layanan`
+--
+
+CREATE TABLE `jenis_layanan` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `nama_layanan` varchar(100) NOT NULL,
+  `deskripsi` text DEFAULT NULL,
+  `biaya` decimal(10,2) DEFAULT 0.00,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `jenis_layanan`
+--
+
+INSERT INTO `jenis_layanan` (`id`, `nama_layanan`, `deskripsi`, `biaya`, `created_at`, `updated_at`) VALUES
+(1, 'Uji Pertama', NULL, 0.00, NULL, NULL),
+(2, 'Uji Berkala / Periodik', NULL, 0.00, NULL, NULL),
+(3, 'Numpang Uji Masuk', NULL, 0.00, NULL, NULL),
+(4, 'Numpang Uji Keluar', NULL, 0.00, NULL, NULL),
+(5, 'Mutasi Kendaraan Masuk', NULL, 0.00, NULL, NULL),
+(6, 'Mutasi Kendaraan Keluar', NULL, 0.00, NULL, NULL),
+(7, 'Uji Emisi Non KBWU', NULL, 0.00, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -177,7 +218,8 @@ CREATE TABLE `kendaraan` (
 --
 
 INSERT INTO `kendaraan` (`id`, `pemilik_id`, `no_kendaraan`, `no_rangka`, `no_mesin`, `no_bpkb`, `merek`, `tipe`, `jenis_kendaraan`, `model`, `tahun_pembuatan`, `tahun_perakitan`, `isi_silinder`, `warna`, `warna_tnkb`, `bahan_bakar`, `jumlah_roda`, `jumlah_sumbu`, `kapasitas_penumpang`, `berat_kosong`, `jbb`, `jbi`, `masa_berlaku_stnk`, `masa_berlaku_uji_kir`, `created_at`, `updated_at`) VALUES
-(1, 1, 'B 3866 KOA', 'MHFZ29G3JK123456', '2GD12345678', 'L01234567', 'Yoyota', 'Hilux', 'Mobil Barang', 'Single Cabin', 2021, 2021, 2393, 'Hitam', 'Kuning', 'Solar', 4, 2, 2, 1800, 2800, 2500, '2026-08-15', '2025-12-31', '2025-12-26 00:11:03', '2025-12-26 00:11:03');
+(4, 2, 'B 3866 KOB', 'MHFZ29G3JK123453', '2GD12345672', 'L01234569', 'Yoyota', 'Hilux', 'Mobil Penumpang', 'Single Cabin', 2021, 2021, 2393, 'Hitam', 'Kuning', 'Bensin', 4, 2, 2, 1800, 2800, 2500, '2026-08-15', '2026-08-13', '2026-01-12 19:11:32', '2026-02-13 00:51:02'),
+(7, 4, 'B 2543 CA', 'MHFZ29G3JK1299LL', '2GD12345349', 'L0993459UI', 'TOYOTA', 'GR COROLLA', 'Mobil Penumpang', 'Single Cabin', 2018, 2019, 2000, 'Hitam', 'Kuning', 'Bensin', 4, 3, 4, 40, 45, 30, '2026-01-14', '2026-01-30', '2026-01-22 06:39:16', '2026-01-22 06:39:16');
 
 -- --------------------------------------------------------
 
@@ -248,8 +290,9 @@ CREATE TABLE `pemilik` (
 --
 
 INSERT INTO `pemilik` (`id`, `nik`, `nama_lengkap`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `alamat_ktp`, `provinsi`, `kota_kabupaten`, `kecamatan`, `kelurahan`, `kode_pos`, `no_hp`, `email`, `pekerjaan`, `created_at`, `updated_at`) VALUES
-(1, '3275041807010010', 'Dimas Suhendra', 'L', 'Bekasi', '2001-07-18', 'Jalan Pulau Bawaen 1, Warung Kayren\r\nKecamatan Sukarame Kota Bandar Lampung', 'Lampung', 'Bandar Lampung', 'Sukabumi', 'Sukabumi', '35131', '085780809099', 'dimassuhendra0104@gmail.com', 'Mahasiswa', '2025-12-25 21:24:46', '2025-12-25 21:24:46'),
-(2, '3275041807010012', 'Bimantara', 'L', 'Palembang', '2003-08-08', 'Jalan Pulau Bawaen 1, Warung Kayren\r\nKecamatan Sukarame Kota Bandar Lampung', 'Lampung', 'Bandar Lampung', 'Sukarame', 'Sukarame', '35131', '085780809099', 'bimantara007@gmail.com', 'Guru', '2025-12-25 23:29:26', '2025-12-25 23:35:44');
+(2, '3275041807010012', 'Bimantara', 'L', 'Palembang', '2003-08-08', 'Jalan Pulau Bawaen 1, Warung Kayren\r\nKecamatan Sukarame Kota Bandar Lampung', 'Lampung', 'Bandar Lampung', 'Sukarame', 'Sukarame', '35131', '085780809099', 'bimantara007@gmail.com', 'Guru', '2025-12-25 23:29:26', '2025-12-25 23:35:44'),
+(3, '3174081706010080', 'Destri Wahyuni Wulandari', 'P', 'Palembang', '2003-07-18', 'Jalan Pelabuhan Raya, Kost Villa Marina', 'Lampung', 'Kota Bandar Lampung', 'Sukarame', 'Sukabumi', '35132', '087934739239', 'della777@gmail.com', 'Guru', '2026-01-17 23:46:19', '2026-01-17 23:46:54'),
+(4, '1871050601030002', 'yusril mahjong', 'L', 'Kota Bandar Lampung', '2003-01-13', 'jalan ikan sepat gg. senggol', 'lampung', 'Bandar Lampung', 'jati kayu', 'jati ukir', '35122', '087721718290', 'yusril.mahesa101@gmail.com', 'satpam', '2026-01-22 05:54:08', '2026-01-22 05:54:08');
 
 -- --------------------------------------------------------
 
@@ -260,11 +303,11 @@ INSERT INTO `pemilik` (`id`, `nik`, `nama_lengkap`, `jenis_kelamin`, `tempat_lah
 CREATE TABLE `pendaftaran` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `kendaraan_id` bigint(20) UNSIGNED NOT NULL,
+  `jenis_pendaftaran` bigint(20) UNSIGNED DEFAULT NULL,
   `petugas_id` bigint(20) UNSIGNED DEFAULT NULL,
   `kode_pendaftaran` varchar(255) NOT NULL,
   `tgl_daftar` date NOT NULL,
   `nomor_antrean` varchar(10) NOT NULL,
-  `jenis_pendaftaran` enum('Baru','Berkala','Numpang Uji','Mutasi') NOT NULL,
   `total_biaya` int(11) NOT NULL DEFAULT 0,
   `metode_pembayaran` enum('Tunai','Transfer','QRIS') DEFAULT NULL,
   `status_pembayaran` enum('Pending','Lunas','Batal') NOT NULL DEFAULT 'Pending',
@@ -280,9 +323,15 @@ CREATE TABLE `pendaftaran` (
 -- Dumping data for table `pendaftaran`
 --
 
-INSERT INTO `pendaftaran` (`id`, `kendaraan_id`, `petugas_id`, `kode_pendaftaran`, `tgl_daftar`, `nomor_antrean`, `jenis_pendaftaran`, `total_biaya`, `metode_pembayaran`, `status_pembayaran`, `tgl_bayar`, `status_uji`, `catatan_petugas`, `foto_kendaraan`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'REG-20251226-VLPW', '2025-12-26', '001', 'Baru', 150000, NULL, 'Lunas', NULL, 'Menunggu', NULL, NULL, '2025-12-26 00:22:48', '2025-12-26 00:22:48'),
-(2, 1, 1, 'REG-20260103-KGPO', '2026-01-03', '001', 'Mutasi', 150000, NULL, 'Lunas', NULL, 'Proses', NULL, NULL, '2026-01-02 21:11:54', '2026-01-03 08:01:05');
+INSERT INTO `pendaftaran` (`id`, `kendaraan_id`, `jenis_pendaftaran`, `petugas_id`, `kode_pendaftaran`, `tgl_daftar`, `nomor_antrean`, `total_biaya`, `metode_pembayaran`, `status_pembayaran`, `tgl_bayar`, `status_uji`, `catatan_petugas`, `foto_kendaraan`, `created_at`, `updated_at`) VALUES
+(3, 4, NULL, 1, 'REG-20260113-3ZK4', '2026-01-13', '001', 150000, NULL, 'Lunas', NULL, 'Lulus', NULL, NULL, '2026-01-12 19:25:46', '2026-01-13 01:21:52'),
+(4, 4, 2, 1, 'REG-20260122-OKTU', '2026-01-22', '001', 150000, NULL, 'Lunas', NULL, 'Lulus', NULL, NULL, '2026-01-22 02:36:15', '2026-02-13 00:42:48'),
+(7, 4, 2, 1, 'REG-20260122-A0LF', '2026-01-22', '004', 150000, NULL, 'Lunas', NULL, 'Lulus', NULL, NULL, '2026-01-22 05:37:22', '2026-02-13 00:42:05'),
+(8, 7, 2, 1, 'REG-20260122-MXWC', '2026-01-22', '003', 150000, NULL, 'Lunas', NULL, 'Lulus', NULL, NULL, '2026-01-22 06:39:51', '2026-01-22 06:42:16'),
+(9, 4, 2, 1, 'REG-20260122-ZMVT', '2026-01-22', '004', 150000, NULL, 'Lunas', NULL, 'Lulus', NULL, NULL, '2026-01-22 06:49:39', '2026-01-22 06:50:02'),
+(10, 4, 1, 1, 'REG-20260213-EDKS', '2026-02-13', '001', 150000, NULL, 'Lunas', NULL, 'Lulus', NULL, NULL, '2026-02-13 00:47:29', '2026-02-13 00:47:48'),
+(11, 4, 1, 1, 'REG-20260213-LCIP', '2026-02-13', '002', 150000, NULL, 'Lunas', NULL, 'Lulus', NULL, NULL, '2026-02-13 00:50:36', '2026-02-13 00:51:02'),
+(12, 7, 2, 1, 'REG-20260409-N3NS', '2026-04-09', '001', 150000, NULL, 'Lunas', NULL, 'Menunggu', NULL, NULL, '2026-04-09 13:39:15', '2026-04-09 13:39:15');
 
 -- --------------------------------------------------------
 
@@ -294,6 +343,7 @@ CREATE TABLE `ratings` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `pendaftaran_id` bigint(20) UNSIGNED NOT NULL,
   `petugas_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `aspek_layanan` enum('administrasi','pos_1','pos_2','pos_3','pos_4','pos_5') NOT NULL,
   `skor_bintang` tinyint(3) UNSIGNED NOT NULL,
   `kategori_keluhan` enum('pelayanan','kecepatan','fasilitas','lainnya') DEFAULT NULL,
   `komentar` text DEFAULT NULL,
@@ -302,6 +352,24 @@ CREATE TABLE `ratings` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `ratings`
+--
+
+INSERT INTO `ratings` (`id`, `pendaftaran_id`, `petugas_id`, `aspek_layanan`, `skor_bintang`, `kategori_keluhan`, `komentar`, `tampilkan_publik`, `ip_address`, `created_at`, `updated_at`) VALUES
+(13, 3, NULL, 'administrasi', 4, NULL, 'good', 1, NULL, '2026-01-22 02:24:46', '2026-01-22 02:24:46'),
+(14, 3, NULL, 'pos_1', 5, NULL, NULL, 1, NULL, '2026-01-22 02:24:46', '2026-01-22 02:24:46'),
+(15, 3, NULL, 'pos_2', 4, NULL, NULL, 1, NULL, '2026-01-22 02:24:46', '2026-01-22 02:24:46'),
+(16, 3, NULL, 'pos_3', 5, NULL, NULL, 1, NULL, '2026-01-22 02:24:46', '2026-01-22 02:24:46'),
+(17, 3, NULL, 'pos_4', 4, NULL, NULL, 1, NULL, '2026-01-22 02:24:46', '2026-01-22 02:24:46'),
+(18, 3, NULL, 'pos_5', 5, NULL, NULL, 1, NULL, '2026-01-22 02:24:46', '2026-01-22 02:24:46'),
+(19, 8, NULL, 'administrasi', 5, NULL, 'pelayanan bagus', 1, NULL, '2026-01-22 06:48:39', '2026-01-22 06:48:39'),
+(20, 8, NULL, 'pos_1', 3, NULL, NULL, 1, NULL, '2026-01-22 06:48:39', '2026-01-22 06:48:39'),
+(21, 8, NULL, 'pos_2', 2, NULL, NULL, 1, NULL, '2026-01-22 06:48:39', '2026-01-22 06:48:39'),
+(22, 8, NULL, 'pos_3', 4, NULL, NULL, 1, NULL, '2026-01-22 06:48:39', '2026-01-22 06:48:39'),
+(23, 8, NULL, 'pos_4', 5, NULL, NULL, 1, NULL, '2026-01-22 06:48:39', '2026-01-22 06:48:39'),
+(24, 8, NULL, 'pos_5', 5, NULL, NULL, 1, NULL, '2026-01-22 06:48:39', '2026-01-22 06:48:39');
 
 -- --------------------------------------------------------
 
@@ -323,9 +391,9 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('957gNsTBOHdY7YN0KcaywEbxh1kursdANtwKl8Nb', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiSGhwWE85Tk1kbXZlQjZGTHVOcU1PYkhUOWVxMHRvVTdEVktNRjdNbSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJuZXciO2E6MDp7fXM6Mzoib2xkIjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MzM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2dpbi1hZG1pbiI7czo1OiJyb3V0ZSI7czo1OiJsb2dpbiI7fX0=', 1768218668),
-('haWKqE0bNZuKcmU5ojYwP6UILmFqOIu0Q4GfxCD3', 3, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiTDQ0SEl1OVQyRlpXRWowM3NaOFJOYVNXZWtTQUFNZEV4Mk51bUl0VSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJuZXciO2E6MDp7fXM6Mzoib2xkIjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wZXR1Z2FzL2VtaXNpLzIiO3M6NToicm91dGUiO3M6MTk6InBldHVnYXMuZW1pc2kuaW5kZXgiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aTozO30=', 1767414795),
-('V4xsbej9HOHpib89q7P8I6BfUU1XOMC6UUOJR4KL', 4, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36 Edg/143.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiNVk1TkpGNnBDM05ndVd2Y0JNdVNPcndXa2pqeHRhMHBFM3lTRTYySSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJuZXciO2E6MDp7fXM6Mzoib2xkIjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MzU6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wZXR1Z2FzL3JlbS8yIjtzOjU6InJvdXRlIjtzOjE3OiJwZXR1Z2FzLnJlbS5pbmRleCI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjQ7fQ==', 1767454916);
+('M0Yr4mqgS5GrttZPB1uK31g6nQz77YulZ1XGJDNs', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiZkpHa1VxNjJUME4yMmxKU1hDNjVxTURVbnZ0dm5sdTVCaEVBbHlybiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mzk6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMS9hZG1pbi9yZWthcC1oYXNpbCI7czo1OiJyb3V0ZSI7czoyMToiYWRtaW4uaGFzaWwtdWppLmluZGV4Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo0MDoiaHR0cDovL2xvY2FsaG9zdDo4MDAxL2NldGFrLWhhc2lsLXVqaS8xMiI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1775767159),
+('O9a30R9LRMbyV1o9RgRLPVZTFnnpqbCJj7qciwRt', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoicTlQaFNLM2xtZ0NTOFZMUUtBWGNuZVBZdnVGWEJSM2h2dDZ6ckNCUyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMSI7czo1OiJyb3V0ZSI7czoxMjoic3VydmVpLmluZGV4Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1770970072),
+('tYnbF6BpoxYiLWLXmythGHTudfwMyGv1yFRs7uir', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36 Edg/146.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiOGI5NUMxU05Dam1HQk9kTUV0MDc5TnZrRWVkc0Z2eW9nSFNkM0JyMSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7czoxMjoic3VydmVpLmluZGV4Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1776136647);
 
 -- --------------------------------------------------------
 
@@ -340,7 +408,7 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
-  `role` enum('super_admin','admin_pendaftaran','petugas') NOT NULL DEFAULT 'admin_pendaftaran',
+  `role` enum('super_admin','petugas','admin_pendaftaran') NOT NULL DEFAULT 'admin_pendaftaran',
   `pos_tugas` varchar(255) DEFAULT NULL,
   `is_active` tinyint(1) NOT NULL DEFAULT 1,
   `last_login_at` timestamp NULL DEFAULT NULL,
@@ -394,6 +462,12 @@ ALTER TABLE `hasil_uji`
   ADD KEY `hasil_uji_petugas_id_foreign` (`petugas_id`);
 
 --
+-- Indexes for table `jenis_layanan`
+--
+ALTER TABLE `jenis_layanan`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `jobs`
 --
 ALTER TABLE `jobs`
@@ -444,14 +518,15 @@ ALTER TABLE `pendaftaran`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `pendaftaran_kode_pendaftaran_unique` (`kode_pendaftaran`),
   ADD KEY `pendaftaran_kendaraan_id_foreign` (`kendaraan_id`),
-  ADD KEY `pendaftaran_petugas_id_foreign` (`petugas_id`);
+  ADD KEY `pendaftaran_petugas_id_foreign` (`petugas_id`),
+  ADD KEY `pendaftaran_jenis_layanan_foreign` (`jenis_pendaftaran`);
 
 --
 -- Indexes for table `ratings`
 --
 ALTER TABLE `ratings`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `ratings_pendaftaran_id_unique` (`pendaftaran_id`),
+  ADD UNIQUE KEY `pendaftaran_aspek_unique` (`pendaftaran_id`,`aspek_layanan`),
   ADD KEY `ratings_petugas_id_foreign` (`petugas_id`);
 
 --
@@ -484,7 +559,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `hasil_uji`
 --
 ALTER TABLE `hasil_uji`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `jenis_layanan`
+--
+ALTER TABLE `jenis_layanan`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -496,7 +577,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `kendaraan`
 --
 ALTER TABLE `kendaraan`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -508,19 +589,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `pemilik`
 --
 ALTER TABLE `pemilik`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `pendaftaran`
 --
 ALTER TABLE `pendaftaran`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `ratings`
 --
 ALTER TABLE `ratings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -549,6 +630,7 @@ ALTER TABLE `kendaraan`
 -- Constraints for table `pendaftaran`
 --
 ALTER TABLE `pendaftaran`
+  ADD CONSTRAINT `pendaftaran_jenis_layanan_foreign` FOREIGN KEY (`jenis_pendaftaran`) REFERENCES `jenis_layanan` (`id`),
   ADD CONSTRAINT `pendaftaran_kendaraan_id_foreign` FOREIGN KEY (`kendaraan_id`) REFERENCES `kendaraan` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `pendaftaran_petugas_id_foreign` FOREIGN KEY (`petugas_id`) REFERENCES `users` (`id`);
 
